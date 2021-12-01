@@ -18,6 +18,12 @@ terminal.question("Input the command in format: 'cp fromFileName toFileName'\n",
         terminal.close();
       }
 
+      if (words[1] === words[2]) {
+        console.log("The same directory");
+        terminal.close();
+        return;
+      }
+
       fs.writeFile(words[2], content, (err, data) => {
         if (err) {
           throw err;
