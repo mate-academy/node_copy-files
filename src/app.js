@@ -4,22 +4,24 @@ const fs = require('fs');
 
 const [fileFrom, fileTo] = process.argv.slice(2);
 
-if (!fileFrom.includes('/') && !fileTo.includes('/')) {
-  // eslint-disable-next-line no-console
-  console.log('Ви намагається скопіювати в те саме місце');
+function reviewPath(array) {
+  let res = '';
+  for (let i = 0; i < array.length - 1; i++) {
+    res += array[i];
 
-  return
+  }
+
+  return res;
 }
 
 const destArrFrom = fileFrom.split('/');
-const nameFileFrom = destArrFrom[0];
-const destArr = fileTo.split('/');
-const nameFileTo = destArr[0];
+const destArrTo = fileTo.split('/');
+const pathFileFrom = reviewPath(destArrFrom);
+const pathFileTo = reviewPath(destArrTo);
 
-
-if (nameFileFrom === nameFileTo) {
+if (pathFileFrom === pathFileTo) {
   // eslint-disable-next-line no-console
-  console.log('Ви намагається скопіювати в те саме місце');
+  console.log('Ви намагається скопіювати в те саме місце!');
 
   return;
 }
