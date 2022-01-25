@@ -3,7 +3,7 @@
 const fs = require('fs');
 const fsPromises = require('fs/promises');
 
-const copyFile = async(fromPath, toPath) => {
+const copyFile = async (fromPath, toPath) => {
   if (fs.existsSync(toPath)) {
     await fsPromises.copyFile(fromPath, `${toPath}/${fromPath}`);
   } else {
@@ -22,6 +22,11 @@ const handleErrors = (error, fromPath, toPath) => {
       break;
 
     case (error.code === 'ENOENT' && !fs.existsSync(fromPath)):
+      console.log(`cp: cannot stat '${fromPath}': No such file or directory`);
+
+      break;
+
+    case (error.code === 'ENOENT' && !fs.existsSync(toPath)):
       console.log(
         `cp: cannot create regular file '${toPath}':`,
         `No such file or directory`
@@ -38,7 +43,7 @@ const handleErrors = (error, fromPath, toPath) => {
   }
 };
 
-const main = async(fromPath, toPath) => {
+const main = async (fromPath, toPath) => {
   try {
     await copyFile(fromPath, toPath);
   } catch (error) {
