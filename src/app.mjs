@@ -1,6 +1,9 @@
 import fs from 'fs';
 
-copyFile('./s.txt', '../m.txt');
+const from = process.argv[2];
+const when = process.argv[3];
+
+copyFile(from, when);
 
 function copyFile(copy, past) {
   if (!past[0].includes('.')) {
