@@ -1,4 +1,7 @@
 # Copy files
+
+**Read [the guideline](https://github.com/mate-academy/js_task-guideline/blob/master/README.md) before start**
+
 Write an app that will copy a file from one specified location to another like
 Linux cp command: `cp file.txt file-copy.txt`.
 - It must do nothing in case the user is trying to copy to the same location.
