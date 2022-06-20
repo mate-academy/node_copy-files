@@ -8,7 +8,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-rl.question('Where to copy the file?', (userInput) => {
+rl.question('Where to copy the file? ', (userInput) => {
   fs.copyFile('src/copy.js', `src/${userInput}/copy.js`,
     fs.constants.COPYFILE_EXCL, (err) => {
       if (err) {
