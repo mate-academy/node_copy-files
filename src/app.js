@@ -5,14 +5,6 @@ const { writeFile, readFile, existsSync } = require('fs');
 const log = console.log;
 const [source, destination] = process.argv.slice(2);
 
-const isValidFilename = (filename) => {
-  const rg1 = /^[^\\/:*?"<>|]+$/;
-  const rg2 = /^\./;
-  const rg3 = /^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i;
-
-  return rg1.test(filename) && !rg2.test(filename) && !rg3.test(filename);
-};
-
 if (!source || !destination) {
   log('Specify both source and destination files!');
   process.exit();
@@ -20,16 +12,6 @@ if (!source || !destination) {
 
 if (source === destination) {
   log('Can not copy to the same file!');
-  process.exit();
-}
-
-if (!isValidFilename(source)) {
-  log('Source path is invalid!');
-  process.exit();
-}
-
-if (!isValidFilename(destination)) {
-  log('Destination path is invalid!');
   process.exit();
 }
 
