@@ -6,7 +6,7 @@ const fs = require('fs');
 const [sourse, destination] = process.argv.slice(2);
 
 if (!sourse || !destination) {
-  console.log('You don\'t have on of path');
+  console.log('You don\'t have one of the path');
   process.exit();
 }
 
