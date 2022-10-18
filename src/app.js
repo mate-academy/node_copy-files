@@ -6,8 +6,8 @@ const fs = require('fs');
 const [oldPath, newPath] = process.argv.slice(2);
 
 oldPath !== newPath
-  ? fs.copyFile(`${oldPath}`, `${newPath}`, callback)
-  : console.log('Please, copy to file ti another location');
+  ? fs.copyFile(oldPath, newPath, callback)
+  : console.log('Please, copy to file to another location');
 
 function callback(err) {
   if (err) {
