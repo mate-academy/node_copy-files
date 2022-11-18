@@ -2,7 +2,6 @@
   "name": "node_copy-files",
   "version": "1.0.0",
   "description": "Copy files",
-  "type": "module",
   "main": "src/app.js",
   "scripts": {
     "init": "mate-scripts init",
@@ -27,6 +26,6 @@
     "projectType": "javascript"
   },
   "dependencies": {
-    "inquirer": "^9.1.4"
+    "inquirer": "^8.2.5"
   }
 }
