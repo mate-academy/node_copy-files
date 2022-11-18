@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 'use strict';
 
-const { copyFiles } = require('./app');
+const { copyFiles } = require('./app.js');
 const fs = require('fs');
 
 describe('Copy files test', () => {

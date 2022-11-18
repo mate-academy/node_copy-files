@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 'use strict';
 
-const { validation } = require('./validation');
+const { validation } = require('./validation.js');
 
 function copyFiles(from, to) {
   return validation(from, to);

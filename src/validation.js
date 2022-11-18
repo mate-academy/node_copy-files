@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 'use strict';
 
-const { checkPath } = require('./checkPath');
+const { checkPath } = require('./checkPath.js');
 const fs = require('fs');
 const path = require('path');
 
