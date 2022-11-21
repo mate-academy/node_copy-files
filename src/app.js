@@ -1,15 +1,13 @@
 /* eslint-disable no-console */
 'use strict';
 
-const { validation } = require('./validation.js');
+const { copyFile } = require('./copyFile.js');
 
 function copyFiles(from, to) {
-  return validation(from, to);
+  return copyFile(from, to);
 }
 
-const request = process.argv.slice(2);
-const pathFrom = request[0];
-const pathTo = request[1];
+const [pathFrom, pathTo] = process.argv.slice(2);
 
 copyFiles(pathFrom, pathTo);
 

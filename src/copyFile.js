@@ -12,7 +12,7 @@ const validateNewName = (fileName) => {
   return validationExpression.test(fileName);
 };
 
-async function validation(from, to) {
+async function copyFile(from, to) {
   try {
     const dirFrom = path.dirname(from);
     const dirTo = path.dirname(to);
@@ -63,4 +63,4 @@ async function validation(from, to) {
   }
 }
 
-module.exports = { validation };
+module.exports = { copyFile };
