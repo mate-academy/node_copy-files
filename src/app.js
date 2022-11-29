@@ -10,20 +10,20 @@
 const copyFile = require('fs-copy-file');
 
 const source = process.argv[2];
-const dest = process.argv[3];
+const destination = process.argv[3];
 
-const callback = (err) => {
-  if (err) {
-    throw err;
+const callback = (error) => {
+  if (error) {
+    throw error;
   }
 };
 
 const sourcePath = source.split('/').slice(0, -1).join('');
-const destPath = dest.split('/').slice(0, -1).join('');
-const isSamePath = sourcePath === destPath;
+const destinationPath = destination.split('/').slice(0, -1).join('');
+const isSamePath = sourcePath === destinationPath;
 
 if (isSamePath) {
   throw new Error('Copying files to the same location is not allowed');
 } else {
-  copyFile(source, dest, callback);
+  copyFile(source, destination, callback);
 }
