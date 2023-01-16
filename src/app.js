@@ -11,19 +11,21 @@ function copyFile(initPath, targetPath) {
     return;
   }
 
-  if (fs.existsSync(initPath)) {
-    const target = targetPath + path.sep + path.basename(initPath);
-
-    fs.cp(initPath, target, (error) => {
-      if (!error) {
-        console.log(`${initPath} was copied to ${targetPath}`);
-      } else {
-        console.log('The file cannot be copied to this folder');
-      }
-    });
-  } else {
+  if (!fs.existsSync(initPath)) {
     console.log('File does not exist!!!');
+
+    return;
   }
+
+  const target = targetPath + path.sep + path.basename(initPath);
+
+  fs.cp(initPath, target, (error) => {
+    if (!error) {
+      console.log(`${initPath} was copied to ${targetPath}`);
+    } else {
+      console.log('The file cannot be copied to this folder');
+    }
+  });
 }
 
 copyFile(sourse, destination);
