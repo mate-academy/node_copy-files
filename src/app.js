@@ -2,14 +2,16 @@
 
 const fs = require('fs');
 
-const [source, dest] = process.argv.slice(2);
+const [source, destination] = process.argv.slice(2);
 
 const copyFile = () => {
-  if (source === dest) {
+  if (source === destination) {
     throw Error('Can not copy with the same filename');
   }
 
-  fs.cp(source, dest, () => {});
+  fs.cp(source, destination, (e) => {
+    throw e;
+  });
 };
 
 copyFile();
