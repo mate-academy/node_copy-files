@@ -5,7 +5,9 @@ const fs = require('fs');
 
 const [oldFile, newFile] = process.argv.slice(2);
 
-oldFile === newFile
+console.log(oldFile, newFile);
+
+oldFile !== newFile
   ? fs.copyFile(oldFile, newFile, callback)
   : console.log('Please, copy to file to another location');
 
