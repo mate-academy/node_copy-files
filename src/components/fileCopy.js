@@ -1,3 +1,6 @@
+'use strict';
+
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
@@ -5,7 +8,7 @@ const readline = require('readline');
 const terminal = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-})
+});
 
 const fileCopy = (message) => {
   terminal.question(message, (command) => {
@@ -36,7 +39,7 @@ const fileCopy = (message) => {
     console.log('File copied!');
 
     terminal.close();
-  })
+  });
 };
 
 module.exports = { fileCopy };
