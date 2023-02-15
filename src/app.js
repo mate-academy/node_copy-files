@@ -1,21 +1,36 @@
+/* eslint-disable no-console */
 'use strict';
 
 const fs = require('fs');
+const { copyFile } = require('fs').promises;
+const path = require('path');
 
-const [pathFromCopy, pathToCopy] = process.argv.slice(2);
+async function copyFileFunction() {
+  const [command, fileNameForCopy, newFile] = process.argv.slice(2);
 
-function copyFile(pathFrom, pathTo) {
-  if (pathFrom === pathTo) {
+  if (!command) {
+    return;
+  }
+
+  const isCorrectCommand = ['cp', 'copy'].includes(command.toLowerCase());
+  const targetFilePath = path.join(__dirname, fileNameForCopy);
+  const newFilePath = path.join(__dirname, newFile);
+
+  if (!fs.existsSync(targetFilePath)) {
+    console.log('You passed invalid file name');
+
+    return;
+  }
+
+  if (isCorrectCommand && fileNameForCopy === newFile) {
     return 'You can\' copy file with the same path';
   }
 
   try {
-    const data = fs.readFileSync(pathFrom, 'utf-8');
-
-    fs.writeFileSync(pathToCopy, data);
+    await copyFile(targetFilePath, newFilePath);
   } catch (error) {
-    return 'Smt went worng';
+    console.error(error);
   }
 }
 
-copyFile(pathFromCopy, pathToCopy);
+copyFileFunction();
