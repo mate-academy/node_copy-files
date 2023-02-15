@@ -4,7 +4,7 @@ const fs = require('fs');
 
 function copy(originalFilePath, copyFilePath) {
   if (originalFilePath === copyFilePath) {
-    throw new Error('you are trying to copy data to an output file');
+    throw new Error('You are trying to copy data to an output file');
   }
 
   try {
