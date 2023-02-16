@@ -9,6 +9,8 @@ async function copyFileFunction() {
   const [command, fileNameForCopy, newFile] = process.argv.slice(2);
 
   if (!command) {
+    console.log('Please type the correct command');
+
     return;
   }
 
@@ -18,6 +20,12 @@ async function copyFileFunction() {
 
   if (!fs.existsSync(targetFilePath)) {
     console.log('You passed invalid file name');
+
+    return;
+  }
+
+  if (!isCorrectCommand) {
+    console.log('You typed invalid command');
 
     return;
   }
