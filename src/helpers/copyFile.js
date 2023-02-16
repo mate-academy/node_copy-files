@@ -3,16 +3,17 @@
 
 const fs = require('fs');
 const { terminal } = require('./terminal');
+const path = require('path');
 
 function copyFiles(message) {
   terminal.question(message, (command) => {
     const [ commandName, fileToCopy, newFileOrPath ] = command.split(' ');
     const formatOfNewFile = newFileOrPath.split('.')[1];
 
-    const pathToSourceFile = (`${__dirname}/${fileToCopy}`);
+    const pathToSourceFile = path.join(__dirname, fileToCopy);
     const pathToNewFile = formatOfNewFile !== undefined
-      ? (`${__dirname}/${newFileOrPath}`)
-      : (`${newFileOrPath}/${fileToCopy}`);
+      ? path.join(__dirname, newFileOrPath)
+      : path.join(__dirname, fileToCopy);
 
     console.log(pathToNewFile);
 

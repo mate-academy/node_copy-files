@@ -3,4 +3,4 @@
 
 const { copyFiles } = require('./helpers/copyFile');
 
-copyFiles('Enter your command ');
+copyFiles('Enter your command: \n');
