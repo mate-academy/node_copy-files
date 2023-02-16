@@ -5,7 +5,7 @@ const fs = require('fs');
 
 function copyFile(originalFile, newFile) {
   if (originalFile === newFile) {
-    console.log('Source and target files are the same!');
+    console.log('Original file and target file are the same!');
 
     return;
   }
