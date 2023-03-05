@@ -12,9 +12,7 @@ const makeCopy = async(from, to) => {
   }
 
   try {
-    const content = await fs.readFile(fromPath);
-
-    await fs.writeFile(toPath, content);
+    await fs.copyFile(fromPath, toPath);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
