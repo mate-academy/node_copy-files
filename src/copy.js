@@ -1,9 +1,9 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('fs/promises');
 const path = require('path');
 
-const makeCopy = (from, to) => {
+const makeCopy = async(from, to) => {
   const fromPath = path.join(__dirname, from);
   const toPath = path.join(__dirname, to);
 
@@ -12,9 +12,9 @@ const makeCopy = (from, to) => {
   }
 
   try {
-    const content = fs.readFileSync(fromPath);
+    const content = await fs.readFile(fromPath);
 
-    fs.writeFileSync(toPath, content);
+    await fs.writeFile(toPath, content);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
