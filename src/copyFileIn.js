@@ -17,12 +17,12 @@ function copyFileIn(from, to) {
 
   try {
     const data = fs.readFileSync(pathFrom, 'utf8');
+  } catch (error) {
+    throw new Error(`Code was fail with - ${error.code}`);
+  }
 
-    try {
-      fs.writeFileSync(pathTo, data);
-    } catch (error) {
-      throw new Error(`Code was fail with - ${error.code}`);
-    }
+  try {
+    fs.writeFileSync(pathTo, data);
   } catch (error) {
     throw new Error(`Code was fail with - ${error.code}`);
   }
