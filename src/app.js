@@ -2,8 +2,8 @@
 "use strict";
 
 const terminal = require("./modules/terminal");
-const copy = require("./modules/copy");
 const fs = require("fs");
+const copy = require("./modules/copy");
 
 const start = () => {
   terminal.question("Enter the path to the file: ", (path) => {

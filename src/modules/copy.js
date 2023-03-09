@@ -1,6 +1,9 @@
 /* eslint-disable no-console */
 "use strict";
 
+const terminal = require("./terminal");
+const fs = require("fs");
+
 const copy = (path) => {
   terminal.question("Destination? ", (destPath) => {
     if (path !== destPath) {
