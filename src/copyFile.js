@@ -8,13 +8,11 @@ const copyFile = (fileFrom, fileTo) => {
   fs.copyFile(fileFrom, fileTo, (err) => {
     if (err) {
       console.log(err);
-
-      terminal.close();
     } else {
       console.log(`Your file '${fileFrom}' copied to '${fileTo}'.`);
-
-      terminal.close();
     }
+
+    terminal.close();
   });
 };
 
