@@ -3,6 +3,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { terminal } = require('./terminal');
 
 function copyFile(source, destination) {
   const sourcePath = path.resolve(source);
@@ -21,7 +22,19 @@ function copyFile(source, destination) {
 
   writeStream.on('close', () => {
     console.log(`Successfully copied ${sourcePath} to ${destPath}.`);
+    terminal.close();
   });
 }
 
-copyFile('file.txt', 'src/file-copy.txt');
+terminal.question('write paths: from... to... ', (answer) => {
+  const paths = answer.split(' ');
+
+  if (paths.length !== 2) {
+    console.log('impossible path');
+    terminal.close();
+
+    return;
+  }
+
+  copyFile(...paths);
+});
