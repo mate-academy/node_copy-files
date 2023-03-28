@@ -11,9 +11,7 @@ function copyFile(sourceFile, destinationFile) {
 
   if (!fs.existsSync(sourcePath)) {
     console.error(
-      `The file ${path.basename(
-        sourcePath
-      )} does not exist at the source location.`
+      `The file ${fileName} does not exist at the source location.`
     );
 
     return;
