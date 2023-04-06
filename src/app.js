@@ -7,11 +7,11 @@ const { isEqual } = require('lodash');
 
 function copyFile(from, to) {
   if (isEqual(from, to)) {
-    console.log('You can\'t copy a file in the same path');
+    console.warn('You can\'t copy a file in the same path');
   } else {
     fs.copyFile(from, to, err => {
       if (err) {
-        return console.log(err);
+        return console.error(err);
       }
 
       console.log('Your file has been copied');
