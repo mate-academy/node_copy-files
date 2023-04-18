@@ -3,6 +3,7 @@
 
 const { terminal } = require('./terminal');
 const fs = require('fs');
+const path = require('path');
 
 const promptCopyFile = () => {
   terminal.question(
@@ -24,7 +25,10 @@ const promptCopyFile = () => {
         return;
       }
 
-      fs.copyFile(source, dest, (err) => {
+      const pathFrom = path.join(__dirname, source);
+      const pathTo = path.join(__dirname, dest);
+
+      fs.copyFile(pathFrom, pathTo, (err) => {
         if (err) {
           console.error(err);
           terminal.close();
