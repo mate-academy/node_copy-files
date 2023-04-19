@@ -1,47 +1,37 @@
 /* eslint-disable no-console */
 'use strict';
 
-const { terminal } = require('./terminal');
 const fs = require('fs');
 const path = require('path');
 
-const promptCopyFile = () => {
-  terminal.question(
-    'What must be copied? (Example: "cp file.txt file-copy.txt"): ',
-    (input) => {
-      const [ command, source, dest ] = input.split(' ');
+const [source, dest] = process.argv.slice(2);
 
-      if (command !== 'cp' || !source || !dest) {
-        console.log('Wrong command. Try again');
-        promptCopyFile();
+if (!source || !dest) {
+  console.log(
+    `Please provide a source file and a destination file name.
+     Example: file.txt file-copy.txt.`
+  );
 
-        return;
-      }
+  return;
+}
 
-      if (source === dest) {
-        console.log('You are trying to copy to the same location');
-        promptCopyFile();
+if (source === dest) {
+  console.log(
+    'You are trying to copy to the same location'
+  );
 
-        return;
-      }
+  return;
+}
 
-      const pathFrom = path.join(__dirname, source);
-      const pathTo = path.join(__dirname, dest);
+const pathFrom = path.join(__dirname, source);
+const pathTo = path.join(__dirname, dest);
 
-      fs.copyFile(pathFrom, pathTo, (err) => {
-        if (err) {
-          console.error(err);
-          terminal.close();
+fs.copyFile(pathFrom, pathTo, (err) => {
+  if (err) {
+    console.error(err);
 
-          return;
-        }
+    return;
+  }
 
-        console.log('Successfully copied!');
-        terminal.close();
-      });
-    });
-};
-
-promptCopyFile();
-
-module.exports = { promptCopyFile };
+  console.log('Successfully copied!');
+});
