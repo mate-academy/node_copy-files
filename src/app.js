@@ -48,4 +48,4 @@ function copyFile(copyPath, newPath) {
   logs.success(fileName, resolveNewPath);
 }
 
-copyFile('file-copy.txt', 'file-copy.txt');
+copyFile('file.txt', 'file-copy.txt');
