@@ -4,6 +4,9 @@
 const fs = require('fs');
 const path = require('path');
 
+const copyP = process.argv[2];
+const newP = process.argv[3];
+
 const yellow = '\x1b[33m';
 const green = '\x1b[32m';
 const red = '\x1b[31m';
@@ -22,14 +25,18 @@ const logs = {
       console.log(`The file - ${yellow}${fileName} \x1b[0m`
         + `was successfully copied to ${green}${resolveNewPath}`);
     },
+  error: () => {
+    console.log(
+      'You need to write the old path and the new one. '
+       + `\nLike ${green}node ./src/app.js file.txt file-copy.txt`
+    );
+  },
 };
 
 function copyFile(copyPath, newPath) {
   const resolveCopyPath = path.resolve(copyPath);
   const resolveNewPath = path.resolve(newPath);
   const fileName = path.basename(resolveCopyPath);
-
-  console.log(resolveCopyPath);
 
   if (!fs.existsSync(resolveCopyPath)) {
     logs.location();
@@ -48,4 +55,8 @@ function copyFile(copyPath, newPath) {
   logs.success(fileName, resolveNewPath);
 }
 
-copyFile('file.txt', 'file-copy.txt');
+if (copyP && newP) {
+  copyFile(copyP, newP);
+} else {
+  logs.error();
+}
