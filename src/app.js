@@ -4,22 +4,29 @@ const fs = require('fs');
 const path = require('path');
 
 function copyFile(fileName, result) {
-  const sourcePath = path.resolve(fileName);
-  const targetPath = path.resolve(result);
+  if (fileName === result) {
+    // eslint-disable-next-line no-console
+    console.log('file and target same');
+  } else {
+    const sourcePath = path.resolve(fileName);
+    const targetPath = path.resolve(result);
 
-  fs.readFile(sourcePath, (err, data) => {
-    if (err) {
+    fs.readFile(sourcePath, (err, data) => {
+      if (err) {
       // eslint-disable-next-line no-console
-      console.log('this file not found');
-    }
+        console.log(`File not found: ${sourcePath}`);
 
-    fs.writeFile(targetPath, data, (error) => {
-      if (error) {
-        // eslint-disable-next-line no-console
-        console.log('some thing was wrong');
+        return;
       }
+
+      fs.writeFile(targetPath, data, (error) => {
+        if (error) {
+        // eslint-disable-next-line no-console
+          console.log(`Unable to write to file: ${targetPath}`);
+        }
+      });
     });
-  });
+  }
 };
 
 const [, , source, target] = process.argv;
