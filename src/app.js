@@ -2,6 +2,6 @@
 
 const { copy } = require('./copy');
 
-const [copiedFilePath, newPath] = process.argv.slice(2);
+const [sourcePath, newPath] = process.argv.slice(2);
 
-copy(copiedFilePath, newPath);
+copy(sourcePath, newPath);
