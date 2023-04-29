@@ -4,7 +4,7 @@
 const fs = require('fs');
 
 function copyFileToDestination() {
-  const [source, dest] = process.argv.slice(2);
+  const [sourcePath, destinationPath] = process.argv.slice(2);
 
   if (process.argv.length < 4) {
     console.log('Please enter file name and destination to copy');
@@ -12,13 +12,19 @@ function copyFileToDestination() {
     return;
   }
 
-  if (source === dest) {
+  if (!fs.existsSync(sourcePath)) {
+    console.log('File path which you want to copy doesnt exist');
+
+    return;
+  }
+
+  if (sourcePath === destinationPath) {
     console.log('You are trying to copy file to the same destination');
 
     return;
   }
 
-  fs.copyFile(source, dest, (error) => {
+  fs.copyFile(sourcePath, destinationPath, (error) => {
     if (error) {
       console.log(error);
 
