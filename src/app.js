@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 
 function copyFile() {
   const terminalParameters = process.argv.slice(2);
@@ -15,17 +14,14 @@ function copyFile() {
     );
   }
 
-  const pathToCopyFromFile = path.join(__dirname, copyFromFile);
-  const pathToCopyToFile = path.join(__dirname, copyToFile);
-
-  if (pathToCopyFromFile === pathToCopyToFile) {
+  if (copyFromFile === copyToFile) {
     global.console.log('You are trying to copy file to itself');
 
     return;
   }
 
   try {
-    fs.copyFileSync(pathToCopyFromFile, pathToCopyToFile);
+    fs.copyFileSync(copyFromFile, copyToFile);
 
     global.console.log(
       `Success: you copied file from ${copyFromFile} to ${copyToFile}`
