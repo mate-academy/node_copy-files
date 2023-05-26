@@ -12,7 +12,7 @@ const terminalInterface = readline.createInterface({
 
 const makeCopyFile = () => {
   terminalInterface.question(
-    'Use the command cp and enter file name and new file name',
+    'Use the command cp and enter file name and new file name: ',
     (inputValue) => {
       const [command, sourceFile, targetFile] = inputValue.split(' ');
 
@@ -36,6 +36,8 @@ const makeCopyFile = () => {
     }
   );
 };
+
+makeCopyFile();
 
 module.exports = {
   makeCopyFile,
