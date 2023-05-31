@@ -2,16 +2,24 @@
 
 const fs = require('fs');
 
-const copyFile = () => {
-  try {
-    if (process.argv[2] === 'cp') {
-      const [file, copy] = process.argv.slice(3);
+const copyFile = (file, copy) => {
+  if (file === copy) {
+    // eslint-disable-next-line no-console
+    console.log('Error: Cant create copy with same name!');
 
-      fs.copyFileSync(file, copy);
-    }
+    return;
+  }
+
+  try {
+    fs.copyFileSync(file, copy);
   } catch (error) {
-    throw new Error(error);
+    // eslint-disable-next-line no-console
+    console.log(error);
   }
 };
 
-copyFile();
+if (process.argv[2] === 'cp') {
+  const [file, copy] = process.argv.slice(3);
+
+  copyFile(file, copy);
+}
