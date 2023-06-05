@@ -4,13 +4,25 @@
 const fs = require('fs');
 const args = process.argv.slice(2);
 
-if (args[0] === 'cp' && args[1] !== args[2]) {
-  copyFile(args[1], args[2]);
-}
+copyFile(args);
 
-function copyFile(file, copy) {
+function copyFile([cp, file, copy]) {
+  if (cp !== 'cp') {
+    console.log('Command copy file should be start: cp');
+
+    return;
+  }
+
   if (!file || !copy) {
-    return 'Write file name which need copy and name copy file.';
+    console.log('Write file name which need copy and name copy file');
+
+    return;
+  }
+
+  if (file === copy) {
+    console.log('Copy should have another name');
+
+    return;
   }
 
   try {
