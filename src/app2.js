@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 'use strict';
 
@@ -15,19 +16,17 @@ const copyFile = () => {
     return;
   }
 
-  try {
-    const fileData = fs.readFileSync(pathToFile, 'utf8');
-
-    fs.writeFileSync(newPathToFile, fileData);
-
-    console.log(
-      `The file was successfully copied from ${pathToFile} to ${newPathToFile}`,
-    );
-  } catch (error) {
-    console.log(
-      `Have some problems with paths ${pathToFile} or ${newPathToFile}`
-    );
-  }
+  fs.copyFile(pathToFile, newPathToFile, (error) => {
+    if (error) {
+      console.log(
+        `Have some problems with paths ${pathToFile} or ${newPathToFile}`
+      );
+    } else {
+      console.log(
+        `The file was successfully copied from ${pathToFile} to ${newPathToFile}`,
+      );
+    }
+  });
 };
 
 copyFile();
