@@ -2,7 +2,6 @@
 
 const fs = require('fs');
 const { readAndWriteFile } = require('./helpers.js');
-const { terminalInterface } = require('./terminalInterface.js');
 
 const copyFile = (source, destination) => {
   if (!fs.existsSync(source)) {
@@ -10,8 +9,6 @@ const copyFile = (source, destination) => {
   }
 
   readAndWriteFile(source, destination);
-
-  terminalInterface.close();
 };
 
 module.exports = { copyFile };
