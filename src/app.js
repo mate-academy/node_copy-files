@@ -11,7 +11,7 @@ const createCopy = (pathToFile, pathToCopyFile) => {
   }
 
   try {
-    const data = fs.readFileSync(pathToFile, 'utf8');
+    const data = fs.copyFileSync(pathToFile, 'utf8');
 
     oldFile = data;
   } catch (error) {
@@ -19,12 +19,10 @@ const createCopy = (pathToFile, pathToCopyFile) => {
   }
 
   try {
-    fs.writeFileSync(pathToCopyFile, oldFile);
+    fs.copyFileSync(pathToCopyFile, oldFile);
   } catch (error) {
     throw new Error('Wrong path to copy file');
   }
-
-  console.log('Copy was created');
 };
 
 const [path, pathForCopy] = process.argv.slice(2);
