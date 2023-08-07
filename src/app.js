@@ -2,7 +2,6 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 
 const copy = () => {
   const args = process.argv.splice(2);
@@ -15,9 +14,9 @@ const copy = () => {
   }
 
   try {
-    const data = fs.readFileSync(path.join(__dirname, source), 'utf8');
+    const data = fs.readFileSync(source);
 
-    fs.writeFileSync(path.join(__dirname, dest), data, 'utf8');
+    fs.writeFileSync(dest, data);
   } catch (e) {
     console.error(e);
   };
