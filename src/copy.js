@@ -9,7 +9,7 @@ const copy = (src, dest) => {
   }
 
   try {
-    const fileContent = fs.readFileSync(src, 'utf8');
+    const fileContent = fs.readFileSync(src);
 
     fs.writeFileSync(dest, fileContent);
   } catch (err) {
