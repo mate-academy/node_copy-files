@@ -10,7 +10,7 @@ function copyFile() {
     if (command === 'cp'
       && fs.existsSync(firstFile)
       && !fs.existsSync(secondFile)
-      ) {
+    ) {
       fs.copyFile(firstFile, secondFile, (err) => {
         if (err) {
           throw new Error(err);
