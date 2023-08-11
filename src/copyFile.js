@@ -3,23 +3,16 @@
 
 const fs = require('fs');
 
-const copyFile = (sourcePath, destPath) => {
-  if (sourcePath === destPath) {
-    console.log(
-      `Failed to copy file. Source and destination paths are the same.`
-    );
-
-    return;
-  }
-
+const copyFile = async(sourcePath, destPath) => {
   try {
-    const data = fs.readFileSync(sourcePath, 'utf-8');
+    const data = await fs.promises.readFile(sourcePath, 'utf-8');
 
-    fs.writeFileSync(destPath, data, 'utf-8');
+    await fs.promises.writeFile(destPath, data, 'utf-8');
 
     console.log(`File copied from ${sourcePath} to ${destPath}`);
   } catch (error) {
-    throw new Error('Failed to copy file', error);
+    console.error(`Failed to copy file: ${error.message}`);
+    throw error;
   }
 };
 

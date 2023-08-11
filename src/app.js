@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use strict';
 
 const path = require('path');
@@ -12,8 +13,18 @@ const cp = () => {
     );
   }
 
-  const sourcePath = path.join(__dirname, source);
-  const destPath = path.join(__dirname, dest);
+  const sourcePath = path.isAbsolute(source)
+    ? source
+    : path.join(__dirname, source);
+  const destPath = path.isAbsolute(dest) ? dest : path.join(__dirname, dest);
+
+  if (sourcePath === destPath) {
+    console.log(
+      `Failed to copy file. Source and destination paths are the same.`
+    );
+
+    return;
+  }
 
   copyFile(sourcePath, destPath);
 };
