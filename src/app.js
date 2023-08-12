@@ -1,63 +1,45 @@
+/* eslint-disable no-console */
 'use strict';
 
-require('colors');
+const fs = require('fs');
 
-const fs = require('fs/promises');
-const path = require('path');
-const { notification } = require('./notifications');
-const { getUserInput, closeInterface } = require('./getUserInput');
-const { isFileAndExist } = require('./checkFile');
+(() => {
+  const args = process.argv.slice(2);
+  const [command, sourcePath, destinationPath] = args;
 
-(async function copyFile() {
-  while (true) {
-    const prompt = await getUserInput('Enter your command: '.blue);
-    const normalizedPrompt = prompt.replace(/\s+/g, ' ').trim().split(' ');
+  if (command !== 'cp') {
+    console.log('Error: command not found');
 
-    if (normalizedPrompt.length !== 3) {
-      notification.warning('You must enter a command and two files');
-      continue;
-    }
-
-    const [command, sourceFile, destFile] = normalizedPrompt;
-
-    const sourceAbsolutePath = path.resolve(sourceFile);
-    const destAbsolutePath = path.resolve(destFile);
-
-    if (sourceAbsolutePath === destAbsolutePath) {
-      notification.warning(
-        'Source and destination are the same. File not copied.',
-      );
-      continue;
-    }
-
-    if (command !== 'cp') {
-      notification.warning('Invalid command');
-      continue;
-    }
-
-    const sourceFileExists = await isFileAndExist(sourceAbsolutePath);
-
-    if (!sourceFileExists) {
-      notification.error('Source file does not exist');
-      break;
-    }
-
-    const destFileExists = await isFileAndExist(destAbsolutePath);
-
-    if (destFileExists) {
-      notification.warning('Destination file already exists');
-      continue;
-    }
-
-    try {
-      await fs.copyFile(sourceAbsolutePath, destAbsolutePath);
-      notification.success('File copied successfully');
-      break;
-    } catch (err) {
-      notification.error(err.message);
-      break;
-    }
+    return;
   }
 
-  closeInterface();
+  if (!sourcePath || !destinationPath) {
+    console.log('usage: cp source_file target_file');
+
+    return;
+  }
+
+  copyFile(sourcePath, destinationPath);
 })();
+
+function copyFile(sourcePath, destinationPath) {
+  if (sourcePath === destinationPath) {
+    console.log(
+      `cp: ${sourcePath} and ${destinationPath} are identical (not copied).`,
+    );
+
+    return;
+  }
+
+  try {
+    const content = fs.readFileSync(sourcePath, 'utf8');
+
+    fs.writeFileSync(destinationPath, content);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log(`cp: ${sourcePath}: No such file or directory`);
+    } else {
+      console.log(error);
+    }
+  }
+}
