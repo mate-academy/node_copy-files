@@ -3,9 +3,8 @@
 const fs = require('fs');
 
 function copyFile() {
-  const cp = process.argv[2];
-  const pathFile = process.argv[3];
-  const pathToCopy = process.argv[4];
+  const pathFile = process.argv[2];
+  const pathToCopy = process.argv[3];
 
   if (pathFile === pathToCopy) {
     throw Error('The file cannot be in the same location as the copy');
@@ -19,21 +18,15 @@ function copyFile() {
     throw Error('Check if the input is correct, please enter the existing paths for both files');
   }
 
-  if (cp === 'cp') {
-    try {
-      const data = fs.readFileSync(pathFile);
-
-      fs.writeFileSync(pathToCopy, data);
-      /* eslint-disable-next-line no-console */
-      console.log('Сopying was successful');
-    } catch (error) {
-      /* eslint-disable-next-line no-console */
-      console.error(error);
-    }
-  } else {
+  try {
+    const data = fs.readFileSync(pathFile);
+    fs.writeFileSync(pathToCopy, data);
     /* eslint-disable-next-line no-console */
-    console.error('Enter the correct method, such as "cp"');
+    console.log('Copying was successful');
+  } catch (error) {
+    /* eslint-disable-next-line no-console */
+    console.error(error);
   }
-};
+}
 
 copyFile();
