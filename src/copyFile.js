@@ -3,14 +3,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const defaultPath = path.join(__dirname, '../');
+// const defaultPath = path.join(__dirname, '../');
 
 const makeFullPath = (pathToAdd) => {
-  return path.join(defaultPath, pathToAdd);
+  return path.join(__dirname, '../', pathToAdd);
 };
 
 function copyFile(souceFilePath, copyFilePath) {
-  const fileContent = fs.readFileSync(makeFullPath(souceFilePath), 'utf8');
+  const fullSourcePath = souceFilePath.startsWith('.')
+    ? makeFullPath(souceFilePath)
+    : souceFilePath;
+
+  const fileContent = fs.readFileSync(fullSourcePath, 'utf8');
 
   fs.writeFileSync(makeFullPath(copyFilePath), fileContent);
 }
