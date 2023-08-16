@@ -7,13 +7,17 @@ const copy = (fileName, fileToCopy) => {
     throw new Error('Files have the same names');
   }
 
-  try {
-    const data = fs.readFileSync(fileName, 'utf-8');
+  fs.readFile(fileName, (error, data) => {
+    if (error) {
+      throw new Error(error);
+    }
 
-    fs.writeFileSync(fileToCopy, data, 'utf-8');
-  } catch (error) {
-    throw new Error(error);
-  }
+    fs.writeFile(fileToCopy, data, (err) => {
+      if (err) {
+        throw new Error(err);
+      }
+    });
+  });
 };
 
 module.exports = { copy };
