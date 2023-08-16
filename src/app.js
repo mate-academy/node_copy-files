@@ -1,43 +1,21 @@
 'use strict';
 
-const terminal = require('./modules/terminal');
 const fs = require('fs');
-const path = require('path');
 
 function copyFile() {
-  terminal.question('Enter your command: ', (key) => {
-    const [command, firstFile, secondFile] = key.trim().split(' ');
-    const firstFilePath = path.join(__dirname, firstFile);
-    const secondFilePath = path.join(__dirname, secondFile);
+  const command = process.argv[2];
+  const firstFile = process.argv[3];
+  const secondFile = process.argv[4];
 
-    if (command === 'cp'
-      && fs.existsSync(firstFilePath)
-      && !fs.existsSync(secondFilePath)
-    ) {
-      const content = fs.readFileSync(
-        firstFilePath,
-        'utf8',
-        (err, data) => {
-          if (err) {
-            throw new Error(err);
-          }
+  if (firstFile !== secondFile && command === 'cp') {
+    const content = fs.readFileSync(firstFile);
 
-          return data;
-        },
-      );
-
-      fs.writeFileSync(secondFilePath, content, 'utf8', (err) => {
-        if (err) {
-          throw new Error(err);
-        }
-
-        // eslint-disable-next-line no-console
-        console.log(`${firstFile} was copied as ${secondFile}`);
-      });
-    }
-
-    terminal.close();
-  });
+    fs.writeFileSync(secondFile, content, (err) => {
+      if (err) {
+        throw new Error(err);
+      }
+    });
+  }
 };
 
 copyFile();
