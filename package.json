@@ -15,6 +15,7 @@
   "author": "Mate academy",
   "license": "GPL-3.0",
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@mate-academy/eslint-config": "*",
     "@mate-academy/scripts": "^1.2.8",
     "eslint": "^5.16.0",
