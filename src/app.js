@@ -8,13 +8,11 @@ function copyFile() {
   const secondFile = process.argv[4];
 
   if (firstFile !== secondFile && command === 'cp') {
-    const content = fs.readFileSync(firstFile);
-
-    fs.writeFileSync(secondFile, content, (err) => {
-      if (err) {
-        throw new Error(err);
-      }
-    });
+    try {
+      fs.copyFileSync(firstFile, secondFile);
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 };
 
