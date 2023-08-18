@@ -22,7 +22,7 @@ const copyFile = () => {
   }
 
   try {
-    const data = fs.readFileSync(filePath);
+    const data = fs.copyFileSync(filePath);
 
     fs.writeFileSync(copiedFilePath, data);
   } catch (err) {
