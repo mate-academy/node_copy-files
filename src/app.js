@@ -1,11 +1,13 @@
 'use strict';
+/* eslint-disable no-console */
+/* eslint-disable max-len */
 
 const fs = require('fs');
 const path = require('path');
 
 const readline = require('readline').createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 readline.question('Enter the path of the file to copy: ', sourceFilePath => {
@@ -22,22 +24,27 @@ function copyFile(sourceFilePath, destinationFolderPath) {
 
   if (!fs.existsSync(sourceFilePath)) {
     console.error('Source file does not exist.');
+
     return;
   }
 
   if (!fs.existsSync(destinationFolderPath)) {
     console.error('Destination folder does not exist.');
+
     return;
   }
 
   const destinationStats = fs.statSync(destinationFolderPath);
+
   if (!destinationStats.isDirectory()) {
     console.error('Destination is not a directory.');
+
     return;
   }
 
   if (fs.existsSync(destinationPath)) {
     console.error('The file you are trying to copy, already exists in destination folder');
+
     return;
   }
 
