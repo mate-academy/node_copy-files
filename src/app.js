@@ -34,13 +34,18 @@ function copyFile(sourceFilePath, destinationFolderPath) {
     return;
   }
 
-  const destinationStats = fs.statSync(destinationFolderPath);
+  fs.promises.stat(destinationFolderPath)
+    .then(destinationStats => {
+      if (!destinationStats.isDirectory()) {
+        console.error('Destination is not a directory.');
 
-  if (!destinationStats.isDirectory()) {
-    console.error('Destination is not a directory.');
+        return;
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    })
 
-    return;
-  }
 
   if (fs.existsSync(destinationPath)) {
     console.error('The file you are trying to copy, already exists in destination folder');
@@ -50,7 +55,7 @@ function copyFile(sourceFilePath, destinationFolderPath) {
 
   fs.copyFile(sourceFilePath, destinationPath, err => {
     if (err) {
-      console.error(err);
+      console.error(`Failed to copy file. More detailed description: ${err}`);
     } else {
       console.log(`File has been successfully copied to the destination: "${destinationPath}"`);
     }
