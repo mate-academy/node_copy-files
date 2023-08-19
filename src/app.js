@@ -38,14 +38,11 @@ function copyFile(sourceFilePath, destinationFolderPath) {
     .then(destinationStats => {
       if (!destinationStats.isDirectory()) {
         console.error('Destination is not a directory.');
-
-        return;
       }
     })
     .catch(error => {
       console.error(error);
-    })
-
+    });
 
   if (fs.existsSync(destinationPath)) {
     console.error('The file you are trying to copy, already exists in destination folder');
