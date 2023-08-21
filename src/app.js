@@ -6,8 +6,8 @@ const { faker } = require('@faker-js/faker');
 
 const content = faker.lorem.word();
 const fileName = faker.lorem.word();
-const firstPath = `./src/${fileName}.txt`;
-const secondPath = `./src/${fileName} copy.txt`;
+const firstPath = `${__dirname}/${fileName}.txt`;
+const secondPath = `${__dirname}/${fileName} copy.txt`;
 
 fs.writeFile(firstPath, content, (error) => {
   if (error) {
@@ -17,6 +17,8 @@ fs.writeFile(firstPath, content, (error) => {
 
 fs.cp(firstPath, secondPath, (err) => {
   if (firstPath === secondPath) {
+    console.log('You are trying to copy to the same location');
+
     return;
   }
 
