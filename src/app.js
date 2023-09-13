@@ -9,9 +9,9 @@ fs.copyFile(src, dest, (err) => {
     throw new Error('You are trying to copy to the same location');
   }
 
-  try {
-    console.log(`The file was copied from ${src} to ${dest}`);
-  } catch (error) {
+  if (err) {
     console.log(err);
   }
+
+  console.log(`The file was copied from ${src} to ${dest}`);
 });
