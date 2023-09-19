@@ -4,10 +4,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const [fileToCopy, fileToMove] = process.argv.slice(2);
+const [fileToCopy, targetPath] = process.argv.slice(2);
 const startDir = './src';
 
-if (!fileToCopy || !fileToMove) {
+if (!fileToCopy || !targetPath) {
   return console.log(
     'Unable to proceed. Please ensure that'
     + 'you specified 2 paths. e.g node src/app.js file1 file2'
@@ -23,7 +23,7 @@ const findTheFile = (dir) => {
     const pathName = `${dir}${path.sep}${currFile}`;
 
     if (!fs.lstatSync(pathName).isDirectory()) {
-      if (currFile === fileToCopy || currFile === fileToMove) {
+      if (currFile === fileToCopy || currFile === targetPath) {
         allFiles.push(pathName);
       };
     } else {
@@ -37,16 +37,28 @@ const findTheFile = (dir) => {
 };
 
 const foundFiles = findTheFile(startDir);
-const [file, targetFolder] = foundFiles;
 
-if (path.dirname(file) === path.dirname(targetFolder)) {
-  return;
+const checkTheSameFile = [...new Set(foundFiles.map(f => path.basename(f)))];
+
+if (checkTheSameFile.length < 2) {
+  return console.log(
+    'In target directory already exist the file with such name!'
+  );
 };
 
+const [file, targetFolder] = foundFiles;
+
 if (foundFiles.length < 2) {
-  if (fileToCopy === file.split('/').pop()) {
+  if (foundFiles.length === 0) {
     return console.log(
-      `Unable to proceed. File: ${fileToMove} doesn't exist in derictory!`
+      `Unable to proceed. File: ${fileToCopy}`
+      + `and ${targetPath} doesn't exist in derictory!`
+    );
+  }
+
+  if (fileToCopy === path.basename(file)) {
+    return console.log(
+      `Unable to proceed. File: ${targetPath} doesn't exist in derictory!`
     );
   }
 
@@ -54,6 +66,10 @@ if (foundFiles.length < 2) {
     `Unable to proceed. File: ${fileToCopy} doesn't exist in derictory!`
   );
 }
+
+if (path.dirname(file) === path.dirname(targetFolder)) {
+  return;
+};
 
 const targetDir = path.dirname(targetFolder);
 
