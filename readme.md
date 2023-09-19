@@ -4,5 +4,8 @@
 
 Write an app that will copy a file from one specified location to another like
 Linux cp command: `cp file.txt file-copy.txt`.
+
+Usage example: `node copy.js file.txt file-copy.txt`.
+
 - It must do nothing in case the user is trying to copy to the same location.
 - The app must support only copying of files, and no additional options (flags). Plain copying of files.
