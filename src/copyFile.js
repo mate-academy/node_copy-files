@@ -11,7 +11,9 @@ function copyFile(src, dest) {
   }
 
   try {
-    fs.copyFileSync(src, dest);
+    const data = fs.readFileSync(src);
+
+    fs.writeFileSync(dest, data);
     console.log('The file was copied successfully');
   } catch (error) {
     console.log(error);
