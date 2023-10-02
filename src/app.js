@@ -12,28 +12,21 @@ if (params.length !== 2) {
   return;
 }
 
-const addressFile = path.join(__dirname, params[0]);
-const addressCopy = path.join(__dirname, params[1]);
+if (params[1] !== params[0]) {
+  const addressFile = path.join(__dirname, params[0]);
+  const addressCopy = path.join(__dirname, params[1]);
 
-try {
-  fs.readFileSync(addressFile, 'utf-8');
-} catch (err) {
-  console.log('File not found');
+  if (!fs.existsSync(addressCopy)) {
+    try {
+      const content = fs.readFileSync(addressFile, 'utf-8');
 
-  return;
-}
-
-try {
-  fs.readFileSync(addressCopy, 'utf-8');
+      fs.writeFileSync(addressCopy, content);
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    console.log('File exists');
+  }
+} else {
   console.log('File exists');
-
-  return;
-} catch (err) {}
-
-const content = fs.readFileSync(addressFile, 'utf-8');
-
-try {
-  fs.writeFileSync(addressCopy, content);
-} catch (err) {
-  console.log('Somme error...');
 }
