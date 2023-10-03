@@ -26,8 +26,6 @@ function copyFile(currentLocation, specifiedLocation) {
       return `File copied to ${specifiedLocation}`;
     }
   );
-
-  console.log(contentFromCurrentLocation);
 }
 
 module.exports = {
