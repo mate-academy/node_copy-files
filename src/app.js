@@ -1,9 +1,6 @@
 'use strict';
 const fs = require('fs');
 
-const fileToCopy = process.argv[2];
-const copyOfFile = process.argv[3];
-
 function copy(fileToCopy, copyOfFile) {
   console.log('Copying...');
 
@@ -21,4 +18,6 @@ function copy(fileToCopy, copyOfFile) {
   }
 }
 
-copy(fileToCopy, copyOfFile);
+module.exports = {
+  copy,
+};
