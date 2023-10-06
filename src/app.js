@@ -1,8 +1,10 @@
-/* eslint-disable no-console */
 'use strict';
 const fs = require('fs');
 
-async function copy(fileToCopy, copyOfFile) {
+const fileToCopy = process.argv[2];
+const copyOfFile = process.argv[3];
+
+function copy(fileToCopy, copyOfFile) {
   console.log('Copying...');
 
   if (fileToCopy === copyOfFile) {
@@ -11,7 +13,7 @@ async function copy(fileToCopy, copyOfFile) {
   }
 
   try {
-    await fs.copyFileSync(fileToCopy, copyOfFile);
+    fs.copyFileSync(fileToCopy, copyOfFile);
 
     console.log('Copy is done');
   } catch (error) {
@@ -19,6 +21,4 @@ async function copy(fileToCopy, copyOfFile) {
   }
 }
 
-module.exports = {
-  copy,
-};
+copy(fileToCopy, copyOfFile);
