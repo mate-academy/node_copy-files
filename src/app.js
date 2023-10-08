@@ -12,11 +12,9 @@ const cp = async () => {
     console.log('Pathes are same');
   } else {
     try {
-      const response = await fs.readFile(currPath, 'utf-8');
-
-      await fs.writeFile(newPath, response);
+      await fs.cp(currPath, newPath);
     } catch {
-      console.log(error);
+      console.log('Error');
     }
   }
 };
