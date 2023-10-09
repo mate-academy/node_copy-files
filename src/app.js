@@ -10,22 +10,23 @@ function copyFile(currentLocation, specifiedLocation) {
     return;
   }
 
-  const contentFromCurrentLocation = fs.readFileSync(currentLocation, 'utf-8');
+  fs.readFile(currentLocation, 'utf-8', (err, data) => {
+    if (err) {
+      console.log(err);
 
-  fs.writeFileSync(
-    specifiedLocation,
-    contentFromCurrentLocation,
-    'utf-8',
-    (err) => {
-      if (err) {
-        console.log(err);
+      return;
+    }
+
+    fs.writeFile(specifiedLocation, data, 'utf-8', (error) => {
+      if (error) {
+        console.log(error);
 
         return;
       }
 
-      return `File copied to ${specifiedLocation}`;
-    }
-  );
+      console.log(`File copied to ${specifiedLocation}`);
+    });
+  });
 }
 
 module.exports = {
