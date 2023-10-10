@@ -3,7 +3,7 @@
 const fs = require('fs');
 
 function copy(fileToCopy, copyOfFile) {
-  console.log('Copying...');
+  console.log('Copying has started...');
 
   if (fileToCopy === copyOfFile) {
     console.log('You chose the same file name');
@@ -19,6 +19,7 @@ function copy(fileToCopy, copyOfFile) {
   }
 }
 
-module.exports = {
-  copy,
-};
+const copyFrom = process.argv[2];
+const copyTo = process.argv[3];
+
+copy(copyFrom, copyTo);
