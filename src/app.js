@@ -1,8 +1,18 @@
 'use strict';
 
-const ADDRESS = require('./constants');
-const copyFile = require('./copyFile');
+const fs = require('fs');
 
-const [addressFrom, addresTo] = ADDRESS.slice(3).split(' ');
+const createCopy = () => {
+  const [addressFrom, addressTo] = process.argv.slice(2);
 
-copyFile(addressFrom, addresTo);
+  if (addressFrom === addressTo) {
+    return;
+  }
+
+  fs.copyFileSync(
+    addressFrom,
+    addressTo,
+  );
+};
+
+createCopy();
