@@ -2,8 +2,12 @@
 'use strict';
 
 const fs = require('fs');
+const path = require('path');
 
-function copyFile(currentLocation, specifiedLocation) {
+function copyFile(from, to) {
+  const currentLocation = path.resolve(from);
+  const specifiedLocation = path.resolve(to);
+
   if (currentLocation === specifiedLocation) {
     console.log('You trying to copy to the same location.');
 
@@ -29,6 +33,4 @@ function copyFile(currentLocation, specifiedLocation) {
   });
 }
 
-module.exports = {
-  copyFile,
-};
+copyFile(process.argv[2], process.argv[3]);
