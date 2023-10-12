@@ -8,9 +8,20 @@ const path = require('path');
 function copyFile(sourcePath, destinationPath) {
   const fileName = path.basename(sourcePath);
 
-  fs.copyFileSync(sourcePath, path.join(destinationPath, fileName));
+  try {
+    fs.copyFileSync(sourcePath, path.join(destinationPath, fileName));
 
-  console.log(`File '${fileName}' copied to '${destinationPath}'.`);
+    console.log(`File '${fileName}' copied to '${destinationPath}'.`);
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      console.log(`The source file '${fileName}' or `
+      + `destination directory '${destinationPath}' does not exist.`);
+    }
+
+    if (error.code === 'EISDIR') {
+      console.log(`You're trying to copy a directory.`);
+    }
+  }
 }
 
 module.exports = { copyFile };
