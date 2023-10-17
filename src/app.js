@@ -19,13 +19,7 @@ if (command === 'copy' && from !== to) {
 
         return;
       }
-
-      fs.rm(from, rmError => {
-        if (rmError) {
-          console.error(rmError);
-        }
-      });
-      console.log('File moved');
+      console.log('File copied');
     });
   });
 }
