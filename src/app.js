@@ -1,12 +1,31 @@
+/* eslint-disable no-console */
 'use strict';
 
 const fs = require('fs');
 
-const { command, from, to } = process.argv;
+const [command, from, to] = process.argv.slice(2);
 
-console.log(command, from, to);
+console.log(from !== to);
 
 if (command === 'copy' && from !== to) {
-  fs.writeFile(fs.readFile(from));
-  fs.rm(from);
+  fs.readFile(from, (error, fileData) => {
+    if (error) {
+      console.log(error);
+    }
+
+    fs.writeFile(to, fileData.toString(), (err) => {
+      if (err) {
+        console.error(err);
+
+        return;
+      }
+
+      fs.rm(from, rmError => {
+        if (rmError) {
+          console.error(rmError);
+        }
+      });
+      console.log('File moved');
+    });
+  });
 }
