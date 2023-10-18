@@ -3,7 +3,10 @@
 
 const fs = require('fs');
 
-function copy(source, dest) {
+function copy() {
+  const source = process.argv.slice(1)[1];
+  const dest = process.argv.slice(1)[2];
+
   if (source === dest) {
     console.log('Can \'t copy to same location');
 
@@ -18,5 +21,7 @@ function copy(source, dest) {
     console.log('Something went wrong...', e);
   }
 }
+
+copy();
 
 module.exports = { copy };
