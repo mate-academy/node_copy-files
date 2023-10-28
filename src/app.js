@@ -14,8 +14,16 @@ function copyFile(source, destination) {
   });
 }
 
-const sourceFile = process.argv[2];
-const destinationFile = process.argv[3];
+const command = process.argv[2];
+const sourceFile = process.argv[3];
+const destinationFile = process.argv[4];
+
+if (command !== 'cp') {
+  // eslint-disable-next-line
+  console.error('Invalid command. Use "cp" command to copy files.');
+
+  return;
+}
 
 if (sourceFile === destinationFile) {
   // eslint-disable-next-line
