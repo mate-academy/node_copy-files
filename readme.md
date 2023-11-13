@@ -10,6 +10,6 @@ Linux cp command: `cp file.txt file-copy.txt`.
 
 
 
-  How to use:
+  ## How to use:
   - run `node <path> /app.js arg_1 arg_2` or `npm run copy arg_1 arg_2` in root folder.
 - The first argument is the source path like `./folder/file.name` and the second - is the destination folder. It can be copied between drivers: `/<driver name>/<rest path>` or `<driver name>:/<rest path>`.
