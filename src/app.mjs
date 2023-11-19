@@ -13,7 +13,6 @@ async function copyFile(pathFrom, pathTo, encoding) {
     return;
   }
 
-  // check is file exist
   try {
     await fs.access(pathFrom, fs.constants.F_OK);
 
@@ -22,16 +21,13 @@ async function copyFile(pathFrom, pathTo, encoding) {
     throw new Error(`No such file or access denided ${error.message}`);
   }
 
-  // check is it a folder
   try {
     await fs.access(pathTo, fs.constants.F_OK);
 
     const stats = await fs.stat(pathTo);
 
-    if (stats.isDirectory()) {
-      console.log('Path exists OK!');
-    } else {
-      throw new Error('No such folder');
+    if(!stats.isDirectory()) {
+      throw new Error('No such folder')
     }
   } catch (error) {
     throw new Error(`Error path checking ${error.message}`);
