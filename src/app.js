@@ -9,19 +9,17 @@ function copyFile(sourcePath, destinationPath) {
   const absoluteDestinationPath = path.resolve(destinationPath);
 
   if (absoluteSourcePath === absoluteDestinationPath) {
-    console.log('Source and destination are the same');
-
-    return;
+    throw new Error('Source and destination are the same');
   }
 
   try {
-    const fileContent = fs.readFileSync(absoluteSourcePath);
+    const fileContent = fs.readFileSync(absoluteSourcePath, 'utf-8');
 
-    fs.writeFileSync(absoluteDestinationPath, fileContent);
+    fs.writeFileSync(absoluteDestinationPath, fileContent, 'utf-8');
 
-    console.log(`File copied successfully`);
+    console.log('File copied successfully');
   } catch (error) {
-    console.log('Error copying a file');
+    throw new Error('Error copying a file');
   }
 }
 
