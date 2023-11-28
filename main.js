@@ -2,13 +2,20 @@
 
 const { copyFile } = require('./src/copyFile.js');
 
-const main = () => {
-  const [, , fromPath, toPath] = process.argv;
+const main = async() => {
+  try {
+    const [, , fromPath, toPath] = process.argv;
 
-  if (process.argv.length !== 4) {
-    return;
+    copyFile(fromPath, toPath);
+  } catch (e) {
+    if (process.argv.length !== 4) {
+      throw new Error('There is not enough arguments to proceed');
+    }
+
+    if (e.code === 'ENOENT') {
+      throw new Error('No such directory!');
+    }
   }
-  copyFile(fromPath, toPath);
 };
 
 module.exports = { main };
