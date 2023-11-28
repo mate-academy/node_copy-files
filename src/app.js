@@ -7,7 +7,7 @@ const destination = process.argv[3];
 
 (async() => {
   if (source === destination || !source || !destination) {
-    return false;
+    return;
   }
 
   const _dirname = appPath.replace('app.js', '');
