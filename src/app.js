@@ -3,6 +3,15 @@
 const fs = require('fs/promises');
 
 const app = async() => {
+  if (process.argv.length !== 4) {
+    // eslint-disable-next-line no-console
+    console.log(
+      'Error.\nExample of usage: node MODULE_PATH COPIED_PATH TO_COPY_PATH'
+    );
+
+    return;
+  }
+
   const [source, destination] = process.argv.slice(2);
 
   if (source === destination) {
