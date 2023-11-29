@@ -13,4 +13,4 @@ const copyFile = async(originPath, copyPath) => {
   await fs.writeFile(copyPath, content, { flag: 'w+' });
 };
 
-copyFile('test.txt', 'testNew.txt');
+copyFile(process.argv[2], process.argv[3]);
