@@ -15,7 +15,7 @@ const cp = (
 
     fs.writeFile(fileDes, copy);
   } catch (err) {
-    throw err;
+    console.error(err);
   }
 };
 
