@@ -11,3 +11,5 @@ const cp = (fileSrc, fileDes) => {
 
   fs.writeFile(fileDes, copy);
 };
+
+cp();
