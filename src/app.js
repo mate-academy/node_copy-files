@@ -2,14 +2,21 @@
 
 const fs = require('fs');
 
-const cp = (fileSrc, fileDes) => {
+const cp = (
+  fileSrc = process.argv[2],
+  fileDes = process.argv[3]
+) => {
   if (fileSrc === fileDes) {
-    return;
+    throw new Error('Paths are the same!');
   }
 
-  const copy = fs.readFileSync(fileSrc, { encoding: 'utf-8' });
+  try {
+    const copy = fs.readFileSync(fileSrc, { encoding: 'utf-8' });
 
-  fs.writeFile(fileDes, copy);
+    fs.writeFile(fileDes, copy);
+  } catch (err) {
+    throw err;
+  }
 };
 
 cp();
