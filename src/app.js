@@ -22,4 +22,6 @@ const copy = (pathToInitialFile, pathToFinalFile) => {
   fs.unlinkSync(pathToInitialFile);
 };
 
-copy('src/app.js', 'src/test/test.txt');
+const [pathToStartFile, pathToFinishFile] = process.argv.slice(2);
+
+copy(pathToStartFile, pathToFinishFile);
