@@ -2,11 +2,11 @@
 
 const fs = require('fs/promises');
 
-const copy = async(copyFrom, copyTo) => {
+const copy = async(pathFrom, pathTo) => {
   try {
-    if (copyFrom !== copyTo) {
-      const content = await fs.readFile(copyFrom, 'utf8');
-      fs.writeFile(copyTo, content, 'utf8');
+    if (pathFrom !== pathTo) {
+      const content = await fs.readFile(pathFrom, 'utf8');
+      fs.writeFile(pathTo, content, 'utf8');
     }
   } catch (error) {}
 
