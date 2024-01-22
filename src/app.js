@@ -20,6 +20,4 @@ const copy = async(fromPath, toPath) => {
 
 const [from, to] = process.argv.slice(2);
 
-console.log(from, to);
-
 copy(from, to);
