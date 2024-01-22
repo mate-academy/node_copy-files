@@ -9,12 +9,12 @@ const copy = async(fromPath, toPath) => {
   }
 
   try {
-    const content = await fs.readFileSync(fromPath, 'utf-8');
-
-    fs.writeFileSync(toPath, content);
-    console.log('Done');
+    if (fs.existsSync(toPath)) {
+      fs.copyFileSync(fromPath, toPath);
+      console.log('Done');
+    }
   } catch (error) {
-    throw new Error(error);
+    throw new Error('File doesn\'t exist');
   }
 };
 
