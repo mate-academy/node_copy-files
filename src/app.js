@@ -17,7 +17,7 @@ function copyFiles(file, destination) {
   }
 
   fs.copyFile(filePath, destinationPath, (err) => {
-    throw new Error(err);
+    throw new Error('Error copying file:', err.message);
   });
 }
 
