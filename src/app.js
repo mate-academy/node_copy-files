@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const copyFile = (src, dest) => {
   if (src === dest || !src || !dest) {
-    return;
+    throw new Error('Unable to copy file');
   }
 
   const stats = fs.statSync(src);
