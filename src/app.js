@@ -12,6 +12,10 @@ switch (true) {
   case (sourceFile === destinationFile):
     break;
 
+  case !fs.existsSync(sourceFile):
+    console.error('The source is not exist');
+    break;
+
   default: {
     try {
       fs.cpSync(sourceFile, destinationFile);
