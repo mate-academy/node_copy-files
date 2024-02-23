@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const customCopyFile = (sourceFile, destinationFile) => {
-  if (sourceFile === undefined || destinationFile === undefined) {
+  if (destinationFile === undefined) {
     process.stderr.write('should be 2 params');
 
     return;
