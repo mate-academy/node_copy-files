@@ -7,8 +7,6 @@ const sourcePath = process.argv[2];
 const copyPath = process.argv[3];
 
 try {
-  fs.readFileSync(sourcePath);
-
   fs.copyFileSync(sourcePath, copyPath);
 } catch (err) {
   if (err.code === 'ENOENT') {
