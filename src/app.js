@@ -18,11 +18,11 @@ function copyFile(fileSoursePath, fileDestinationPath) {
     return;
   }
 
-  try {
-    fs.copyFileSync(sourcePath, destinationPath);
-  } catch (error) {
-    console.error(error);
-  }
+  fs.copyFile(sourcePath, destinationPath, (error) => {
+    if (error) {
+      console.error(error);
+    }
+  });
 }
 
 const source = process.argv[2];
