@@ -30,7 +30,7 @@ describe('File Copy', () => {
     fs.rmdirSync(tempDir, { recursive: true });
   });
 
-  test('should copy file to a new destination', async() => {
+  test('should copy file to a new destination', async () => {
     await execAsync(`${baseCommand} ${sourceFile} ${destinationFile}`);
 
     expect(fs.existsSync(destinationFile)).toBe(true);
@@ -41,7 +41,7 @@ describe('File Copy', () => {
     expect(copiedContent).toEqual(originalContent);
   });
 
-  test('should copy file to a new destination overwriting existing content', async() => {
+  test('should copy file to a new destination overwriting existing content', async () => {
     const differentContent = faker.lorem.paragraph();
 
     fs.writeFileSync(destinationFile, differentContent);
@@ -53,7 +53,7 @@ describe('File Copy', () => {
     expect(copiedContent).toEqual(sourceContent);
   });
 
-  test('should do nothing if source and destination are the same', async() => {
+  test('should do nothing if source and destination are the same', async () => {
     await execAsync(`${baseCommand} ${sourceFile} ${sourceFile}`);
 
     const beforeStats = fs.statSync(sourceFile);
@@ -62,13 +62,13 @@ describe('File Copy', () => {
     expect(beforeStats.mtime).toEqual(afterStats.mtime);
   });
 
-  test('should throw an error if only one argument is provided', async() => {
+  test('should throw an error if only one argument is provided', async () => {
     const { stderr } = await execAsync(`${baseCommand} ${sourceFile}`);
 
     expect(stderr.length).toBeGreaterThan(0);
   });
 
-  test('should throw an error if source is a directory', async() => {
+  test('should throw an error if source is a directory', async () => {
     const directoryPath = path.join(tempDir, faker.system.commonFileName('txt'));
 
     fs.mkdirSync(directoryPath);
@@ -79,7 +79,7 @@ describe('File Copy', () => {
     expect(fs.existsSync(destinationFile)).toBe(false);
   });
 
-  test('should throw an error if destination is a directory', async() => {
+  test('should throw an error if destination is a directory', async () => {
     const directoryPath = path.join(tempDir, faker.system.commonFileName('txt'));
 
     fs.mkdirSync(directoryPath);
@@ -90,7 +90,7 @@ describe('File Copy', () => {
     expect(fs.existsSync(path.join(directoryPath, path.basename(sourceFile)))).toBe(false);
   });
 
-  test('should throw an error for non-existent source file', async() => {
+  test('should throw an error for non-existent source file', async () => {
     const nonExistentFile = path.join(tempDir, faker.system.commonFileName('txt'));
 
     const { stderr } = await execAsync(`${baseCommand} ${nonExistentFile} ${destinationFile}`);
