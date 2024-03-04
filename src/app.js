@@ -11,7 +11,9 @@ function copyFile() {
     }
 
     if (file === location) {
-      throw new Error('Source and destination files are the same.');
+      console.log('Source and destination files are the same');
+
+      return;
     }
 
     const content = fs.readFileSync(file, 'utf-8');
