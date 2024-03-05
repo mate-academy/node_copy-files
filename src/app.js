@@ -22,7 +22,7 @@ function createCopy(file, location) {
     fs.writeFileSync(location, fileContent, 'utf-8');
     console.log('File copied successfully');
   } catch (error) {
-    console.log('An error occured: ', error);
+    console.error('An error occured: ', error);
   }
 }
 
