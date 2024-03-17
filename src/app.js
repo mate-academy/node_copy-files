@@ -29,5 +29,4 @@ const copyFile = (source, destination) => {
   });
 };
 
-// Викликаємо функцію копіювання з вхідних аргументів
 copyFile(process.argv[2], process.argv[3]);
