@@ -1,7 +1,6 @@
 'use strict';
 /* eslint-disable no-console */
 
-// const path = require('path');
 const file1 = process.argv[2];
 const file2 = process.argv[3];
 
@@ -14,7 +13,7 @@ function copy(urlMain, urlCopy) {
     return;
   }
 
-  if (urlMain === undefined || urlCopy === undefined) {
+  if (!urlMain || !urlCopy) {
     console.error('One of the arguments is not defined');
 
     return;
@@ -28,18 +27,5 @@ function copy(urlMain, urlCopy) {
 }
 
 copy(file1, file2);
-
-// const readStream = fs.createReadStream();
-// const writeStream = fs.createWriteStream();
-
-// function copy(urlMain, urlCopy) {
-//   if (urlMain === urlCopy) {
-//     console.error('The links are the same');
-
-//     return;
-//   }
-
-//   readStream.pipe(writeStream);
-// }
 
 module.exports = { copy };
