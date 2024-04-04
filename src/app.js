@@ -2,7 +2,7 @@
 
 const fs = require('fs').promises;
 
-const main = async () => {
+const copyFile = async () => {
   const [pathFrom, pathTo] = process.argv.slice(2);
 
   if (!pathFrom || !pathTo) {
@@ -22,4 +22,4 @@ const main = async () => {
   }
 };
 
-main();
+copyFile();
