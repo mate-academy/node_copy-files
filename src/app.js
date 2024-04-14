@@ -1,6 +1,6 @@
 'use strict';
 
-import fs from 'fs';
+const fs = require('fs');
 
 /* eslint-disable no-console */
 
@@ -11,7 +11,9 @@ const copyPaste = () => {
   };
 
   if (!files.from || !files.to) {
-    throw new Error('2 valid file paths are required');
+    console.error('2 valid file paths are required');
+
+    return;
   }
 
   fs.readFile(files.from, 'utf-8', (err, data) => {
@@ -19,11 +21,13 @@ const copyPaste = () => {
       console.error(err);
     }
 
-    fs.writeFile(files.to, data, (error) => {
-      if (error) {
-        console.error(error);
-      }
-    });
+    if (data) {
+      fs.writeFile(files.to, data, (error) => {
+        if (error) {
+          console.error(error);
+        }
+      });
+    }
   });
 };
 
