@@ -9,7 +9,7 @@ const copyFile = async () => {
   try {
     const content = await fs.readFile(source, 'utf-8');
 
-    fs.writeFile(destinaton, content);
+    await fs.writeFile(destinaton, content);
   } catch (_) {
     console.error('Failed to copy file');
   }
