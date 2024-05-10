@@ -6,8 +6,6 @@ const fs = require('fs');
 function copyFile() {
   const [source, destination] = process.argv.slice(2);
 
-  console.log(process.argv.slice(2));
-
   if (source === destination) {
     console.error('Source should be different from destination');
 
