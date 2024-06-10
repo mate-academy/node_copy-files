@@ -3,23 +3,31 @@
 
 const fs = require('fs/promises');
 
-const [, , source, destination] = process.argv;
+function copyFile(source, destination) {
+  return fs
+    .lstat(destination)
+    .then((stats) => stats.isDirectory())
+    .catch(() => false)
+    .then((isDirectory) => {
+      if (!source || !destination || isDirectory) {
+        throw new Error('Invalid source or destination path.');
+      }
 
-fs.lstat(destination)
-  .then((stats) => stats.isDirectory())
-  .catch(() => false)
-  .then((isDirectory) => {
-    if (!source || !destination || isDirectory) {
-      console.error();
+      if (source !== destination) {
+        return fs
+          .readFile(source, 'utf-8')
+          .then((data) => fs.writeFile(destination, data, 'utf-8'))
+          .catch(() => {
+            throw new Error('Failed to copy the file.');
+          });
+      } else {
+        throw new Error('Source and destination paths cannot be the same.');
+      }
+    });
+}
 
-      return;
-    }
+const [, , s, d] = process.argv;
 
-    if (source !== destination) {
-      fs.readFile(source, 'utf-8')
-        .then((data) => fs.writeFile(destination, data, 'utf-8'))
-        .catch(() => {
-          console.error();
-        });
-    }
-  });
+copyFile(s, d)
+  .then(() => console.log('File copied successfully.'))
+  .catch((error) => console.error(error.message));
