@@ -6,16 +6,12 @@ const path = require('path');
 
 function copyFile(src, dest) {
   if (path.resolve(src) === path.resolve(dest)) {
-    console.log('Source and destination are the same. No action taken.');
-
-    return;
+    return console.log('Source and destination are the same. No action taken.');
   }
 
   fs.copyFile(src, dest, fs.constants.COPYFILE_FICLONE, (err) => {
     if (err) {
-      console.error('Error copying file:', err);
-
-      return;
+      return console.error('Error copying file:', err);
     }
     console.log('File copied successfully.');
   });
