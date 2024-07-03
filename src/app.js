@@ -11,7 +11,7 @@ const copyFile = (source, dest) => {
     return console.error('Source and destination can`t be the same');
   }
 
-  fs.cp(source, dest, (error) => {
+  fs.copyFile(source, dest, (error) => {
     if (error) {
       return console.error(error);
     } else {
