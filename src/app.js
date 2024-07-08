@@ -12,7 +12,7 @@ function makeFileCopy(filePath, copyPath) {
     return console.error("You can't copy file into the same location");
   }
 
-  fs.cp(filePath, copyPath, (error) => {
+  fs.copyFile(filePath, copyPath, (error) => {
     if (error) {
       return console.error(error);
     } else {
