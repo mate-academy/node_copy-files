@@ -5,14 +5,6 @@ module.exports = {
   },
   rules: {
     'no-proto': 0,
-    'no-unused-vars': [
-      'error',
-      {
-        varsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_',
-      },
-    ],
-    'no-console': ['error', { allow: ['error'] }],
   },
   plugins: ['jest'],
 };
