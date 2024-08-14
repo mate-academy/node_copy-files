@@ -7,6 +7,7 @@ const [source, destination] = args;
 
 if (args.length !== 2) {
   console.error('Usage: node yourScript.js <source> <destination>');
+
   process.exit(1);
 }
 
