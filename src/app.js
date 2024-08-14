@@ -26,6 +26,7 @@ async function copyFile(filesForCopy, pathToCopy) {
 }
 
 const args = process.argv.slice(2);
+
 const [sourceFile, destinationFile] = args;
 
 if (args.length !== 2) {
