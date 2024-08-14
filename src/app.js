@@ -17,7 +17,6 @@ function cp(location1, location2) {
     console.log('File copied');
   } catch (err) {
     console.error('Failed to copy file:', err);
-    process.exit(1);
   }
 }
 
