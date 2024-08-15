@@ -18,7 +18,7 @@ async function copyFile(filesForCopy, pathToCopy) {
       return;
     }
 
-    await fs.cp(filesForCopy, pathToCopy);
+    await fs.copyFile(filesForCopy, pathToCopy);
     console.log(`File coplied from ${filesForCopy} to ${pathToCopy}`);
   } catch (err) {
     console.error('Error during file copy', err.message);
