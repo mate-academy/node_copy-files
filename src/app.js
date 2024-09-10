@@ -1,11 +1,11 @@
 'use strict';
 
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 
 function copyFile(source, destination) {
   try {
-    // Resolve the absolute paths of both source and destination
     const sourcePath = path.resolve(source);
     const destinationPath = path.resolve(destination);
 
