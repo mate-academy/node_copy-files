@@ -38,7 +38,7 @@ const copyFile = (src, dest) => {
 
     console.log('File copied successfully');
   } catch (error) {
-    console.error(error);
+    console.error(`Error during file copy: ${error.message}`);
   }
 };
 
@@ -52,9 +52,16 @@ const handleUserInput = (userInput) => {
     return;
   }
 
+  if (!src || !dest) {
+    console.error('Error: Please provide both source and destination files.');
+    rl.close();
+
+    return;
+  }
+
   copyFile(src, dest);
 
   rl.close();
 };
 
-rl.question('', handleUserInput);
+rl.question('Enter command:', handleUserInput);
