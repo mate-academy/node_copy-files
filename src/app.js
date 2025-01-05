@@ -1,27 +1,43 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('fs').promises;
+const path = require('path');
 
-function copyFiles() {
-  const [fileSource, fileDestination] = process.argv.slice(2);
+async function copyFiles(fileSource, fileDestination) {
+  try {
+    const fromPath = path.resolve(fileSource);
+    const toPath = path.resolve(fileDestination);
 
-  if (!fileDestination) {
-    // eslint-disable-next-line no-console
-    console.error('Provide both file source parh and file destination path');
-
-    return;
-  }
-
-  if (fileSource === fileDestination) {
-    return;
-  }
-
-  fs.cp(fileSource, fileDestination, (error) => {
-    if (error) {
+    if (fromPath === toPath) {
       // eslint-disable-next-line no-console
-      console.log(error);
+      console.error('Source and destination paths are the same');
+
+      return;
     }
-  });
+
+    await fs.access(fromPath);
+
+    await fs.copyFile(fromPath, toPath);
+    // eslint-disable-next-line no-console
+    console.log(`File copied from ${fromPath} to ${toPath}`);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Error during file copy: ${error.message}`);
+  }
 }
 
-copyFiles();
+async function main() {
+  const args = process.argv.slice(2);
+  const [sourcePath, destinationPath] = args;
+
+  if (!sourcePath || !destinationPath) {
+    // eslint-disable-next-line no-console
+    console.error('One or both file paths are missing');
+
+    return;
+  }
+
+  await copyFiles(sourcePath, destinationPath);
+}
+
+main();
