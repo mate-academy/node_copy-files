@@ -28,7 +28,6 @@ const copyFile = () => {
       });
     });
     // eslint-disable-next-line no-console
-    console.log('Success!');
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e.message);
