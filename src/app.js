@@ -25,6 +25,8 @@ const copyFile = () => {
           // eslint-disable-next-line no-console
           console.error('Can not write the file', err.message);
         }
+        // eslint-disable-next-line no-console
+        console.log('Success!');
       });
     });
     // eslint-disable-next-line no-console
