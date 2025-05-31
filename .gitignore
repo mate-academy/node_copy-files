@@ -1,9 +1,13 @@
-# IDE
-.idea
-.vscode
+# Arquivos temporários
+*.tmp
+*.log
+nul
 
-# Node
-node_modules
+# Arquivos de teste temporários
+Copy.txt
+Copy2.txt
+arquivo_*.txt
+log.txt
 
-# MacOS
-.DS_Store
+# Dependências
+node_modules/
