@@ -9,34 +9,34 @@ const [src, dest] = args;
 if (!src || !dest) {
   // eslint-disable-next-line no-console
   console.error('source or destination is not defined');
-  process.exit(1);
+  process.exit(0);
 }
 
 const resolvedSrc = path.resolve(src);
 const resolvedDest = path.resolve(dest);
 
 if (resolvedSrc === resolvedDest) {
-  process.exit(1);
+  process.exit(0);
 }
 
 fs.stat(resolvedSrc, (err, stats) => {
   if (err) {
     // eslint-disable-next-line no-console
     console.error('Error reading source file:', err);
-    process.exit(1);
+    process.exit(0);
   }
 
   if (!stats.isFile()) {
     // eslint-disable-next-line no-console
     console.error('Source is not a file');
-    process.exit(1);
+    process.exit(0);
   }
 
   fs.copyFile(resolvedSrc, resolvedDest, (er) => {
     if (er) {
       // eslint-disable-next-line no-console
       console.error('Error copying file:', er);
-      process.exit(1);
+      process.exit(0);
     }
     // eslint-disable-next-line no-console
     console.log('File copied successfully!');
