@@ -6,13 +6,17 @@ function app() {
   const args = process.argv.slice(2);
   const [sourcePath, destPath] = args;
 
-  if (args.length !== 2) {
+  if (args.length < 2) {
     if (!sourcePath) {
-      throw new Error('Source path is missing');
+      console.error('Source path is missing'); // eslint-disable-line no-console
+
+      return;
     }
 
     if (!destPath) {
-      throw new Error('Destination path is missing');
+      console.error('Dest path is missing'); // eslint-disable-line no-console
+
+      return;
     }
   }
 
@@ -21,15 +25,16 @@ function app() {
   }
 
   if (!fs.existsSync(sourcePath)) {
-    throw new Error('Source file does not exist');
+    console.error("Source file isn't exist"); // eslint-disable-line no-console
+
+    return;
   }
 
   try {
     fs.copyFileSync(sourcePath, destPath);
-
-    return `File copied from ${sourcePath} to ${destPath}`;
+    console.log(`File copied from ${sourcePath} to ${destPath}`); // eslint-disable-line no-console
   } catch (err) {
-    throw new Error('Error while copying file');
+    console.error('Error while copying file'); // eslint-disable-line no-console
   }
 }
 
