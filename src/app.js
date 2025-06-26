@@ -8,7 +8,7 @@ function copyFile() {
   const copyArgs = process.argv.slice(2);
 
   if (copyArgs.length !== 2) {
-    console.error('Script accepts 2 arguments: sourse and destination');
+    console.error('Script accepts 2 arguments: source and destination');
 
     return;
   }
@@ -21,7 +21,7 @@ function copyFile() {
 
   const fileName = path.basename(destinationFile);
   const destinationDirName = path.dirname(destinationFile);
-  const sourseDirName = path.dirname(sourceFile);
+  const sourceDirName = path.dirname(sourceFile);
 
   if (!fs.existsSync(sourceFile)) {
     console.error('Source file is not exist');
@@ -33,7 +33,7 @@ function copyFile() {
     fs.copyFileSync(sourceFile, destinationFile);
 
     console.log(
-      `File ${fileName} copied from ${sourseDirName} to ${destinationDirName}`,
+      `File ${fileName} copied from ${sourceDirName} to ${destinationDirName}`,
     );
   } catch (err) {
     console.error(`Error: ${err.message}`);
