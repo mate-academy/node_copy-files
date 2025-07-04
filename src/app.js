@@ -7,6 +7,8 @@ const makeCopy = (sourcePath, destinationPath) => {
   if (sourcePath === destinationPath) {
     // eslint-disable-next-line no-console
     console.error('That is the same route');
+
+    return;
   }
 
   try {
