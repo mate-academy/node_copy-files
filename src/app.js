@@ -4,15 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const [source, destination] = process.argv.slice(2);
-
 function copyFile(src, dest) {
-  if (!src || !dest) {
-    console.error('Source and destination files must be provided.');
-
-    return;
-  }
-
   const srcPath = path.resolve(src);
   const destPath = path.resolve(dest);
 
@@ -21,32 +13,46 @@ function copyFile(src, dest) {
   }
 
   if (!fs.existsSync(srcPath)) {
-    console.error(`Source file does not exist: ${srcPath}`);
+    const msg = `Source file does not exist: ${srcPath}`;
 
-    return;
+    console.error(msg);
+    throw new Error(msg);
   }
 
   if (fs.lstatSync(srcPath).isDirectory()) {
-    console.error('Source is a directory, cannot copy directories.');
+    const msg = 'Source is a directory, cannot copy directories.';
 
-    return;
+    console.error(msg);
+    throw new Error(msg);
   }
 
   if (fs.existsSync(destPath) && fs.lstatSync(destPath).isDirectory()) {
-    console.error('Destination is a directory, cannot copy to a directory.');
+    const msg = 'Destination is a directory, cannot copy to a directory.';
 
-    return;
+    console.error(msg);
+    throw new Error(msg);
   }
 
-  try {
-    fs.copyFileSync(srcPath, destPath);
-  } catch (err) {
-    console.error(`Failed to copy file: ${err.message}`);
+  fs.copyFileSync(srcPath, destPath);
+}
+
+function main() {
+  const args = process.argv.slice(2);
+
+  if (args.length !== 2) {
+    const msg = 'Exactly two arguments required: source and destination.';
+
+    console.error(msg);
+    throw new Error(msg);
   }
+
+  const [source, destination] = args;
+
+  copyFile(source, destination);
 }
 
 try {
-  copyFile(source, destination);
+  main();
 } catch (err) {
-  console.error(err.message);
+  process.exitCode = 1;
 }

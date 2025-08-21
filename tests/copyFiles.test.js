@@ -4,7 +4,6 @@
 const fs = require('fs');
 const path = require('path');
 const { faker } = require('@faker-js/faker');
-
 const { exec } = require('child_process');
 const util = require('util');
 const execAsync = util.promisify(exec);
@@ -27,7 +26,7 @@ describe('File Copy', () => {
   });
 
   afterEach(() => {
-    fs.rmdirSync(tempDir, { recursive: true });
+    fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
   test('should copy file to a new destination', async () => {
@@ -54,16 +53,23 @@ describe('File Copy', () => {
   });
 
   test('should do nothing if source and destination are the same', async () => {
+    const beforeStats = fs.statSync(sourceFile);
+
     await execAsync(`${baseCommand} ${sourceFile} ${sourceFile}`);
 
-    const beforeStats = fs.statSync(sourceFile);
     const afterStats = fs.statSync(sourceFile);
 
     expect(beforeStats.mtime).toEqual(afterStats.mtime);
   });
 
   test('should throw an error if only one argument is provided', async () => {
-    const { stderr } = await execAsync(`${baseCommand} ${sourceFile}`);
+    let stderr = '';
+
+    try {
+      await execAsync(`${baseCommand} ${sourceFile}`);
+    } catch (err) {
+      stderr = err.stderr;
+    }
 
     expect(stderr.length).toBeGreaterThan(0);
   });
@@ -76,9 +82,13 @@ describe('File Copy', () => {
 
     fs.mkdirSync(directoryPath);
 
-    const { stderr } = await execAsync(
-      `${baseCommand} ${directoryPath} ${destinationFile}`,
-    );
+    let stderr = '';
+
+    try {
+      await execAsync(`${baseCommand} ${directoryPath} ${destinationFile}`);
+    } catch (err) {
+      stderr = err.stderr;
+    }
 
     expect(stderr.length).toBeGreaterThan(0);
     expect(fs.existsSync(destinationFile)).toBe(false);
@@ -92,9 +102,13 @@ describe('File Copy', () => {
 
     fs.mkdirSync(directoryPath);
 
-    const { stderr } = await execAsync(
-      `${baseCommand} ${sourceFile} ${directoryPath}`,
-    );
+    let stderr = '';
+
+    try {
+      await execAsync(`${baseCommand} ${sourceFile} ${directoryPath}`);
+    } catch (err) {
+      stderr = err.stderr;
+    }
 
     expect(stderr.length).toBeGreaterThan(0);
 
@@ -109,12 +123,15 @@ describe('File Copy', () => {
       faker.system.commonFileName('txt'),
     );
 
-    const { stderr } = await execAsync(
-      `${baseCommand} ${nonExistentFile} ${destinationFile}`,
-    );
+    let stderr = '';
+
+    try {
+      await execAsync(`${baseCommand} ${nonExistentFile} ${destinationFile}`);
+    } catch (err) {
+      stderr = err.stderr;
+    }
 
     expect(stderr.length).toBeGreaterThan(0);
-
     expect(fs.existsSync(destinationFile)).toBe(false);
   });
 });
