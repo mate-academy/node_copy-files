@@ -1,17 +1,29 @@
 'use strict';
 
-import fs from 'fs';
+const fs = require('fs');
 
-function copyFile() {
+async function copyFile() {
   const [copyFrom, copyTo] = process.argv.slice(2);
 
-  try {
-    const copyFromData = fs.readFileSync(copyFrom).toString();
+  if (!copyFrom || !copyTo) {
+    // eslint-disable-next-line
+    console.error('One of values is null');
 
-    fs.writeFileSync(copyTo, copyFromData);
+    return;
+  }
+
+  if (copyFrom === copyTo) {
+    // eslint-disable-next-line
+    console.error('Same paths');
+
+    return;
+  }
+
+  try {
+    await fs.promises.copyFile(copyFrom, copyTo);
   } catch (err) {
     // eslint-disable-next-line
-    console.error(err);
+    console.error(err.message);
   }
 }
 
