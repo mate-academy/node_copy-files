@@ -7,29 +7,54 @@ function copyFile() {
   const args = process.argv.slice(2);
   const [source, destination] = args;
 
-  if (source === destination) {
-    console.error(
-      // eslint-disable-next-line max-len
-      'It must do nothing in case the user is trying to copy to the same location.',
-    );
+  if (!source || !destination) {
+    console.error('Error: Both source and destination must be provided.');
 
-    process.exit(1);
+    return;
+    // process.exit(1);
+  }
+
+  if (source === destination) {
+    console.error('Error: Source and destination are the same. Nothing to do.');
+
+    return;
   }
 
   if (!fs.existsSync(source)) {
-    console.error('Source to file is not found');
-    process.exit(1);
+    console.error('Error: Source file does not exist.');
+
+    return;
+    // process.exit(1);
   }
 
-  const stats = fs.statSync(source);
+  const sourceStats = fs.statSync(source);
 
-  if (!stats.isFile()) {
-    console.error('It is not a file');
-    process.exit(1);
+  if (!sourceStats.isFile()) {
+    console.error('Error: Source is not a file.');
+
+    return;
+    // process.exit(1);
   }
 
-  fs.copyFileSync(source, destination);
-  console.log('File copied');
+  if (fs.existsSync(destination)) {
+    const destStats = fs.statSync(destination);
+
+    if (destStats.isDirectory()) {
+      console.error('Error: Destination is a directory.');
+
+      return;
+      // process.exit(1);
+    }
+  }
+
+  try {
+    fs.copyFileSync(source, destination);
+    console.log('File copied successfully.');
+  } catch (err) {
+    console.error('Error while copying file:', err.message);
+
+    // process.exit(1);
+  }
 }
 
 copyFile();
