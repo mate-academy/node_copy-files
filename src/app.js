@@ -3,6 +3,15 @@
 import fs from 'fs';
 
 function copy() {
+  if (process.argv.slice(2).length !== 2) {
+    // eslint-disable-next-line no-console
+    console.error(
+      'Wrong number of arguments is supplied, should pass 2 arguments',
+    );
+
+    return;
+  }
+
   const [sourceFile, destinationFile] = process.argv.slice(2);
 
   if (!sourceFile || !destinationFile) {
