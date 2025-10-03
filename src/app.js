@@ -5,6 +5,10 @@ const path = require('path');
 const args = process.argv.slice(2);
 
 function App(original, copy) {
+  if (args.length !== 2) {
+    return;
+  }
+
   if (!original || !copy) {
     // eslint-disable-next-line no-console
     console.error('Both source and destination paths must be provided');
@@ -40,6 +44,11 @@ function App(original, copy) {
   }
 }
 
-App(args[0], args[1]);
+if (args.length === 2) {
+  App(args[0], args[1]);
+} else {
+  // eslint-disable-next-line no-console
+  console.error('You need to pass 2 arguments!');
+}
 
 module.exports = { App };
