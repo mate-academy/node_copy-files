@@ -12,6 +12,10 @@ function copy() {
 
   const [srcFile, destCopy] = process.argv.slice(2);
 
+  if (srcFile === destCopy) {
+    return;
+  }
+
   if (!srcFile || !destCopy) {
     // eslint-disable-next-line no-console
     console.error('Аргументи є undefined');
@@ -33,8 +37,8 @@ function copy() {
     return;
   }
 
-  if (fs.existsSync(srcFile)) {
-    const destStats = fs.statSync(srcFile);
+  if (fs.existsSync(destCopy)) {
+    const destStats = fs.statSync(destCopy);
 
     if (destStats.isDirectory()) {
       // eslint-disable-next-line no-console
