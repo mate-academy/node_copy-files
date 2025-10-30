@@ -19,6 +19,8 @@ function copy() {
   if (!srcFile || !destCopy) {
     // eslint-disable-next-line no-console
     console.error('Аргументи є undefined');
+
+    return;
   }
 
   if (!fs.existsSync(srcFile)) {
