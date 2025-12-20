@@ -22,8 +22,7 @@ async function app() {
       console.error(`The file could not be copied. Error: ${e}`);
     }
   }
-
-  process.exit(0);
+  process.exit(1);
 }
 
 app();
