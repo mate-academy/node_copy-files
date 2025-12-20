@@ -7,19 +7,25 @@ async function app() {
   const [source, destination] = process.argv.slice(2);
 
   if (!source || !destination) {
-    /* eslint-disable-next-line no-console */
     console.error('Provide source and destination');
 
     return;
   }
 
-  if (source !== destination) {
-    try {
-      await copyFile(source, destination);
-    } catch (e) {
-      console.error(`The file could not be copied. Error: ${e}`);
-    }
+  if (source === destination) {
+    console.error('Source and destination are the same');
+
+    return;
   }
+
+  try {
+    await copyFile(source, destination);
+    console.log(`${source} was copied to ${destination}`);
+  } catch (e) {
+    console.error(`The file could not be copied. Error: ${e}`);
+  }
+
+  process.exit(0);
 }
 
 app();
