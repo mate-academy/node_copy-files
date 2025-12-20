@@ -13,16 +13,13 @@ async function app() {
     return;
   }
 
-  if (source === destination) {
-    return;
-  } else {
+  if (source !== destination) {
     try {
       await copyFile(source, destination);
     } catch (e) {
       console.error(`The file could not be copied. Error: ${e}`);
     }
   }
-  process.exit(1);
 }
 
 app();
