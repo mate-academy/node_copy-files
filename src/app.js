@@ -51,6 +51,8 @@ function app() {
   } catch (err) {
     if (err.code !== 'ENOENT') {
       console.error(err);
+
+      return;
     }
   }
 
