@@ -50,7 +50,7 @@ function app() {
     }
   } catch (err) {
     if (err.code !== 'ENOENT') {
-      throw err;
+      console.error(err);
     }
   }
 
