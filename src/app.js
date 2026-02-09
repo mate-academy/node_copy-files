@@ -26,7 +26,7 @@ function copyFile(from, to) {
 
 const params = process.argv.slice(2);
 
-if (params.length > 0 && params.length < 2) {
+if (params.length !== 2) {
   // eslint-disable-next-line no-console
   console.error('Usage: node app.js <source> <destination>');
 } else {
