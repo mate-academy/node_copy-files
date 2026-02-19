@@ -2,17 +2,27 @@
 'use strict';
 
 const fs = require('fs/promises');
+const path = require('node:path');
 
 async function copyFiles() {
-  const [src, dest] = process.argv.slice(2);
+  const args = process.argv.slice(2);
+  const [src, dest] = args;
 
-  if (!src || !dest) {
+  if (!src || !dest || args.length > 2) {
     console.error('Two arguments are required');
 
     return;
   }
 
-  if (src === dest) {
+  for (const arg of args) {
+    if (arg.startsWith('-')) {
+      console.error('Arguments should not start with a dash');
+
+      return;
+    }
+  }
+
+  if (path.resolve(src) === path.resolve(dest)) {
     return;
   }
 
@@ -48,7 +58,11 @@ async function copyFiles() {
     }
   }
 
-  await fs.copyFile(src, dest);
+  try {
+    await fs.copyFile(src, dest);
+  } catch (err) {
+    console.error('Error copying file:', err.message);
+  }
 }
 
 copyFiles();
