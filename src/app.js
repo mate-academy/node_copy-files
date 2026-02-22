@@ -10,11 +10,7 @@ if (!source || !dest) {
 } else if (source !== dest) {
   fs.copyFile(source, dest, (error) => {
     if (error) {
-      console.error(error);
-
-      return;
+      console.error('Error:', error.message || error);
     }
-
-    console.log('Success');
   });
 }
