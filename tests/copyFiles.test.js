@@ -27,7 +27,7 @@ describe('File Copy', () => {
   });
 
   afterEach(() => {
-    fs.rmdirSync(tempDir, { recursive: true });
+    fs.rmSync(tempDir, { recursive: true });
   });
 
   test('should copy file to a new destination', async () => {
@@ -97,6 +97,7 @@ describe('File Copy', () => {
     );
 
     expect(stderr.length).toBeGreaterThan(0);
+
     expect(
       fs.existsSync(path.join(directoryPath, path.basename(sourceFile))),
     ).toBe(false);
