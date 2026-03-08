@@ -27,11 +27,11 @@ describe('File Copy', () => {
   });
 
   afterEach(() => {
-    fs.rmSync(tempDir, { recursive: true });
+    fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
   test('should copy file to a new destination', async () => {
-    await execAsync(`${baseCommand} ${sourceFile} ${destinationFile}`);
+    await execAsync(`${baseCommand} "${sourceFile}" "${destinationFile}"`);
 
     expect(fs.existsSync(destinationFile)).toBe(true);
 
@@ -46,7 +46,7 @@ describe('File Copy', () => {
 
     fs.writeFileSync(destinationFile, differentContent);
 
-    await execAsync(`${baseCommand} ${sourceFile} ${destinationFile}`);
+    await execAsync(`${baseCommand} "${sourceFile}" "${destinationFile}"`);
 
     const copiedContent = fs.readFileSync(destinationFile, 'utf-8');
 
@@ -54,7 +54,7 @@ describe('File Copy', () => {
   });
 
   test('should do nothing if source and destination are the same', async () => {
-    await execAsync(`${baseCommand} ${sourceFile} ${sourceFile}`);
+    await execAsync(`${baseCommand} "${sourceFile}" "${sourceFile}"`);
 
     const beforeStats = fs.statSync(sourceFile);
     const afterStats = fs.statSync(sourceFile);
@@ -63,7 +63,7 @@ describe('File Copy', () => {
   });
 
   test('should throw an error if only one argument is provided', async () => {
-    const { stderr } = await execAsync(`${baseCommand} ${sourceFile}`);
+    const { stderr } = await execAsync(`${baseCommand} "${sourceFile}"`);
 
     expect(stderr.length).toBeGreaterThan(0);
   });
@@ -77,7 +77,7 @@ describe('File Copy', () => {
     fs.mkdirSync(directoryPath);
 
     const { stderr } = await execAsync(
-      `${baseCommand} ${directoryPath} ${destinationFile}`,
+      `${baseCommand} "${directoryPath}" "${destinationFile}"`,
     );
 
     expect(stderr.length).toBeGreaterThan(0);
@@ -93,7 +93,7 @@ describe('File Copy', () => {
     fs.mkdirSync(directoryPath);
 
     const { stderr } = await execAsync(
-      `${baseCommand} ${sourceFile} ${directoryPath}`,
+      `${baseCommand} "${sourceFile}" "${directoryPath}"`,
     );
 
     expect(stderr.length).toBeGreaterThan(0);
@@ -110,7 +110,7 @@ describe('File Copy', () => {
     );
 
     const { stderr } = await execAsync(
-      `${baseCommand} ${nonExistentFile} ${destinationFile}`,
+      `${baseCommand} "${nonExistentFile}" "${destinationFile}"`,
     );
 
     expect(stderr.length).toBeGreaterThan(0);
