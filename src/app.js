@@ -14,8 +14,6 @@ const copyMyFile = async () => {
   }
 
   if (path.resolve(source) === path.resolve(dest)) {
-    console.error('Source and Destination are the same');
-
     return;
   }
 
