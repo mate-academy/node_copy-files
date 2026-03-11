@@ -4,8 +4,6 @@
 const fs = require('fs/promises');
 const path = require('path');
 
-// console.error('Error checking file:', error.message);
-
 const copyMyFile = async () => {
   const [source, dest] = process.argv.slice(2);
 
@@ -42,9 +40,3 @@ const copyMyFile = async () => {
 };
 
 copyMyFile();
-
-/*
-should throw an error if only one argument is provided(128 ms)
-should throw an error if source is a directory(130 ms)
-'./src/source.txt'  './src/destination.txt'
-*/
