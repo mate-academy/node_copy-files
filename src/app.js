@@ -1,4 +1,3 @@
-/* eslint-disable no-console  */
 'use strict';
 
 const fs = require('node:fs');
@@ -8,37 +7,47 @@ const args = process.argv.slice(2);
 const source = args[0];
 const dest = args[1];
 
-if (!source || !dest) {
-  console.error('Usage: node app.js <source> <destination>');
-
-  process.exit(0);
+function exitWithError(message) {
+  fs.writeSync(process.stderr.fd, `${message}\n`);
+  process.exitCode = 1;
 }
 
-if (path.resolve(source) === path.resolve(dest)) {
-  process.exit(0);
-}
+function main() {
+  if (!source || !dest) {
+    exitWithError('Usage: node app.js <source> <destination>');
 
-if (!fs.existsSync(source)) {
-  console.error('Source file does not exist');
-
-  process.exit(0);
-}
-
-const sourceStat = fs.statSync(source);
-
-if (!sourceStat.isFile()) {
-  console.error('Source is not a file');
-
-  process.exit(0);
-}
-
-if (fs.existsSync(dest)) {
-  const destStat = fs.statSync(dest);
-
-  if (destStat.isDirectory()) {
-    console.error('Destination is a directory');
-    process.exit(0);
+    return;
   }
+
+  if (path.resolve(source) === path.resolve(dest)) {
+    return;
+  }
+
+  if (!fs.existsSync(source)) {
+    exitWithError('Source file does not exist');
+
+    return;
+  }
+
+  const sourceStat = fs.statSync(source);
+
+  if (!sourceStat.isFile()) {
+    exitWithError('Source is not a file');
+
+    return;
+  }
+
+  if (fs.existsSync(dest)) {
+    const destStat = fs.statSync(dest);
+
+    if (destStat.isDirectory()) {
+      exitWithError('Destination is a directory');
+
+      return;
+    }
+  }
+
+  fs.copyFileSync(source, dest);
 }
 
-fs.copyFileSync(source, dest);
+main();

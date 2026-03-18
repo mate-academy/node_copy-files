@@ -6,8 +6,32 @@ const path = require('path');
 const { faker } = require('@faker-js/faker');
 
 const { exec } = require('child_process');
-const util = require('util');
-const execAsync = util.promisify(exec);
+
+function execAsync(command) {
+  return new Promise((resolve, reject) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        reject({
+          ...error,
+          stdout,
+          stderr,
+        });
+        return;
+      }
+
+      resolve({ stdout, stderr });
+    });
+  });
+}
+
+async function execExpectFailure(command) {
+  try {
+    await execAsync(command);
+    throw new Error('Expected command to fail');
+  } catch (error) {
+    return error;
+  }
+}
 
 describe('File Copy', () => {
   const baseCommand = 'node src/app.js';
@@ -21,13 +45,13 @@ describe('File Copy', () => {
   );
 
   beforeEach(() => {
-    fs.mkdirSync(tempDir);
+    fs.mkdirSync(tempDir, { recursive: true });
     sourceContent = faker.lorem.paragraphs();
     fs.writeFileSync(sourceFile, sourceContent);
   });
 
   afterEach(() => {
-    fs.rmdirSync(tempDir, { recursive: true });
+    fs.rmSync(tempDir, { recursive: true, force: true });
   });
 
   test('should copy file to a new destination', async () => {
@@ -63,7 +87,7 @@ describe('File Copy', () => {
   });
 
   test('should throw an error if only one argument is provided', async () => {
-    const { stderr } = await execAsync(`${baseCommand} ${sourceFile}`);
+    const { stderr } = await execExpectFailure(`${baseCommand} ${sourceFile}`);
 
     expect(stderr.length).toBeGreaterThan(0);
   });
@@ -76,7 +100,7 @@ describe('File Copy', () => {
 
     fs.mkdirSync(directoryPath);
 
-    const { stderr } = await execAsync(
+    const { stderr } = await execExpectFailure(
       `${baseCommand} ${directoryPath} ${destinationFile}`,
     );
 
@@ -92,7 +116,7 @@ describe('File Copy', () => {
 
     fs.mkdirSync(directoryPath);
 
-    const { stderr } = await execAsync(
+    const { stderr } = await execExpectFailure(
       `${baseCommand} ${sourceFile} ${directoryPath}`,
     );
 
@@ -108,7 +132,7 @@ describe('File Copy', () => {
       faker.system.commonFileName('txt'),
     );
 
-    const { stderr } = await execAsync(
+    const { stderr } = await execExpectFailure(
       `${baseCommand} ${nonExistentFile} ${destinationFile}`,
     );
 
