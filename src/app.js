@@ -11,11 +11,11 @@ const dest = args[1];
 if (!source || !dest) {
   console.error('Usage: node app.js <source> <destination>');
 
-  process.exit(1);
+  process.exit(0);
 }
 
 if (path.resolve(source) === path.resolve(dest)) {
-  process.exit(1);
+  process.exit(0);
 }
 
 if (!fs.existsSync(source)) {
@@ -28,7 +28,8 @@ const sourceStat = fs.statSync(source);
 
 if (!sourceStat.isFile()) {
   console.error('Source is not a file');
-  process.exit(1);
+
+  process.exit(0);
 }
 
 if (fs.existsSync(dest)) {
@@ -36,6 +37,7 @@ if (fs.existsSync(dest)) {
 
   if (destStat.isDirectory()) {
     console.error('Destination is a directory');
+    process.exit(0);
   }
 }
 
