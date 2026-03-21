@@ -24,9 +24,6 @@ function copyFile() {
   const newPath = path.resolve(argvs[1]);
 
   if (oldPath === newPath) {
-    // eslint-disable-next-line
-    console.error('Source and destination paths are the same');
-
     return;
   }
 
