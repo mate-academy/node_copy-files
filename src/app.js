@@ -10,6 +10,10 @@ function copyFile() {
   const source = arg[0];
   const destination = arg[1];
 
+  if (source === destination) {
+    return;
+  }
+
   try {
     fs.copyFileSync(source, destination);
   } catch (error) {
