@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 'use strict';
 
-const { error } = require('console');
 const fs = require('fs');
 const path = require('path');
 
 const [src, dest] = process.argv.slice(2);
 
 if (!src || !dest) {
-  throw error('Usage: node app.js <source> <destination>');
+  console.error('Usage: node app.js <source> <destination>');
+  process.exit(1);
 }
 
 const srcPath = path.resolve(src);
@@ -19,5 +19,6 @@ if (srcPath !== destPath) {
     fs.copyFileSync(src, dest);
   } catch (err) {
     console.error(err);
+    process.exit(1);
   }
 }
