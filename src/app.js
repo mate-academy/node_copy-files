@@ -8,22 +8,26 @@ const [src, dest] = process.argv.slice(2);
 
 if (!src || !dest) {
   console.error('Usage: node app.js <source> <destination>');
-  process.exit(1);
-}
+} else {
+  const srcPath = path.resolve(src);
+  const destPath = path.resolve(dest);
 
-const srcPath = path.resolve(src);
-const destPath = path.resolve(dest);
-
-if (srcPath !== destPath) {
-  try {
-    if (fs.existsSync(srcPath) && fs.lstatSync(srcPath).isDirectory()) {
-      console.error('Source is a directory');
-      process.exit(1);
+  if (srcPath !== destPath) {
+    try {
+      if (!fs.existsSync(srcPath)) {
+        console.error('Source file does not exist');
+      } else if (fs.lstatSync(srcPath).isDirectory()) {
+        console.error('Source is a directory');
+      } else if (
+        fs.existsSync(destPath) &&
+        fs.lstatSync(destPath).isDirectory()
+      ) {
+        console.error('Destination is a directory');
+      } else {
+        fs.copyFileSync(srcPath, destPath);
+      }
+    } catch (err) {
+      console.error(err.message);
     }
-
-    fs.copyFileSync(src, dest);
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
   }
 }
