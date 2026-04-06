@@ -16,6 +16,11 @@ const destPath = path.resolve(dest);
 
 if (srcPath !== destPath) {
   try {
+    if (fs.existsSync(srcPath) && fs.lstatSync(srcPath).isDirectory()) {
+      console.error('Source is a directory');
+      process.exit(1);
+    }
+
     fs.copyFileSync(src, dest);
   } catch (err) {
     console.error(err);
