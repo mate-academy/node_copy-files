@@ -1,9 +1,14 @@
+/* eslint-disable no-console */
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
 
 const [src, dest] = process.argv.slice(2);
+
+if (!src || !dest) {
+  console.error('Usage: node app.js <source> <destination>');
+}
 
 const srcPath = path.resolve(src);
 const destPath = path.resolve(dest);
