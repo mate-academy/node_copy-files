@@ -8,7 +8,9 @@ const [source, destination] = args;
 
 async function copy() {
   if (!source || !destination) {
-    throw new Error('Please specify the source and destination file paths');
+    console.error('Please specify the source and destination file paths');
+
+    return;
   }
 
   const sourcePath = path.resolve(source);
@@ -19,6 +21,14 @@ async function copy() {
   }
 
   try {
+    const sourceStat = await fs.stat(sourcePath);
+
+    if (!sourceStat.isFile()) {
+      console.error('Source must be a file, not a directory');
+
+      return;
+    }
+
     await fs.copyFile(sourcePath, destinationPath);
   } catch (error) {
     console.error(error);
