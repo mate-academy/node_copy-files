@@ -43,8 +43,8 @@ function copyFiles() {
     fs.existsSync(destinationLocation) &&
     fs.lstatSync(destinationLocation).isDirectory()
   ) {
-    console.error(`Destination path is a directory.
-      Please provide a file path.`);
+    console.error(`Destination path is a directory,
+      please provide a file path.`);
 
     return;
   }
