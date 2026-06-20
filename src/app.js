@@ -9,8 +9,14 @@ if (source === destination) {
   process.exit(0);
 }
 
+if (!source && !destination) {
+  console.error('Zero argument is provided');
+  process.exit(0);
+}
+
 if (!source || !destination) {
   console.error('Only one argument is provided');
+  process.exit(0);
 }
 
 async function copy(from, to) {
@@ -21,8 +27,9 @@ async function copy(from, to) {
   } catch (err) {
     if (err.code === 'EISDIR') {
       console.error('You try to use a directory');
+    } else {
+      console.error('Something went wrong');
     }
-    console.error(err);
   }
 }
 
