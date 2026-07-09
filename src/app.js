@@ -36,6 +36,14 @@ function copyFileTo() {
     }
 
     fs.stat(destinationPath, (destError, destStats) => {
+      if (destError) {
+        if (destError.code !== 'ENOENT') {
+          console.error('Error');
+
+          return;
+        }
+      }
+
       if (destStats && destStats.isDirectory()) {
         console.error('Destination is a directory');
 
