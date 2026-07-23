@@ -15,6 +15,10 @@ export function copyFile(source, dest) {
     fs.copyFileSync(source, dest);
   } catch (error) {
     console.error(error);
+
+    if (process.env.NODE_ENV !== 'test') {
+      process.exit(1);
+    }
   }
 }
 
