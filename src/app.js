@@ -17,10 +17,10 @@ async function main() {
     const fileData = await fsp.readFile(filePath, 'utf8');
 
     await fsp.writeFile(filePathCopy, fileData).catch((error) => {
-      console.log(error);
+      console.error(error);
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
