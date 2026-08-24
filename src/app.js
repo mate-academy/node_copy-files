@@ -7,9 +7,6 @@ const [userFile, fileCopy] = params;
 
 function main() {
   if (userFile === fileCopy) {
-    // eslint-disable-next-line no-console
-    console.error('These addres files is the same');
-
     return;
   }
 
