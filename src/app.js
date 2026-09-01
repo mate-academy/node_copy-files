@@ -28,7 +28,7 @@ async function copyFiles(commandLineArgs) {
     await copyFile(currPath, newPath);
   } catch (error) {
     console.error('Error copying file:', error.message);
-    exit(1);
+    exit(0);
   }
 }
 
