@@ -2,6 +2,7 @@
 
 const path = require('path');
 const { copyFile, stat } = require('fs/promises');
+const { exit } = require('process');
 
 const normalizedArgs = process.argv.slice(2);
 
@@ -27,6 +28,7 @@ async function copyFiles(commandLineArgs) {
     await copyFile(currPath, newPath);
   } catch (error) {
     console.error('Error copying file:', error.message);
+    exit(1);
   }
 }
 
