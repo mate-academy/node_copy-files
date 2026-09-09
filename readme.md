@@ -1,16 +1,23 @@
-# Copy files
+# Copy Files
 
-**Read [the guideline](https://github.com/mate-academy/js_task-guideline/blob/master/README.md) before start**
+## 🎮 About the Project
+I wrote an application that allows copying files from one specified location to another. The app uses Node.js to interact with the file system and handles the copying process.
 
-Write an app in `app.js` file, that will copy a file from one specified location to another like
-Linux cp command: `cp file.txt file-copy.txt`.
+## 🚀 Tech Stack
+- **Node.js** (For building the application and interacting with the file system)
 
-- It must do nothing in case the user is trying to copy to the same location.
-- The app must support only copying of files, and no additional options (flags). Plain copying of files.
-- Throw an error with the console.error() command
+## 🛠️ Tools & Dependencies
+- **ESLint** – For maintaining code quality and consistency  
+- **Prettier** – For automatic code formatting  
+- **Jest** – For testing the file copying functionality  
 
-## Node Version Requirement
+## 📌 Features
+✅ Allows specifying source and destination locations for file copying  
+✅ Provides a simple command-line interface for interaction  
+✅ Includes error handling for invalid paths or file issues  
 
-### Note: Use Node.js version 20 or higher
+## 🌐 Demo
+To run the app, clone the repository and execute the file copy operation locally using Node.js.
 
-If you haven't installed a specific Node.js version, you can manage multiple Node.js versions on your machine using tools like [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm) or [(Node.js version management)](https://nodejs.org/en/blog/release/v20.9.0). Ensure that the selected Node.js version aligns with the specified minimum version before proceeding with the project setup.
+## 📜 License
+This project is forked from 💻 [Mate Academy](https://github.com/mate-academy/node_copy-files)
