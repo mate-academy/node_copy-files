@@ -1,0 +1,24 @@
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+function cpFile() {
+  const [newPath] = process.argv.slice(2);
+
+  const originFileName = path.basename(__filename);
+  const destination = path.join(__dirname, newPath);
+
+  if (originFileName === newPath) {
+    return;
+  }
+
+  try {
+    fs.cpSync(__filename, destination);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+}
+
+cpFile();
