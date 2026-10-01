@@ -97,6 +97,7 @@ describe('File Copy', () => {
     );
 
     expect(stderr.length).toBeGreaterThan(0);
+
     expect(
       fs.existsSync(path.join(directoryPath, path.basename(sourceFile))),
     ).toBe(false);
