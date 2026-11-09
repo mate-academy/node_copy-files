@@ -24,7 +24,7 @@ function copyFile() {
       return;
     }
 
-    if (fs.statSync(originalFilePath).isDirectory()) {
+    if (fs.statSync(filePathToCopy).isDirectory()) {
       // eslint-disable-next-line no-console
       console.error('Destination file path is directory and not a file!');
 
