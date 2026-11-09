@@ -20,6 +20,15 @@ function copyFile() {
     if (fs.statSync(originalFilePath).isDirectory()) {
       // eslint-disable-next-line no-console
       console.error('Original file path is directory and not a file!');
+
+      return;
+    }
+
+    if (fs.statSync(originalFilePath).isDirectory()) {
+      // eslint-disable-next-line no-console
+      console.error('Destination file path is directory and not a file!');
+
+      return;
     }
 
     fs.readFile(originalFilePath, 'utf-8', (err, data) => {
@@ -34,7 +43,7 @@ function copyFile() {
         fs.writeFileSync(filePathToCopy, data);
       } catch (error) {
         // eslint-disable-next-line no-console
-        console.error('Destination file path is invalid!');
+        console.error('File copying was unsuccessfull!');
       }
     });
   } catch (err) {
