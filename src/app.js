@@ -24,13 +24,6 @@ function copyFile() {
       return;
     }
 
-    if (fs.statSync(filePathToCopy).isDirectory()) {
-      // eslint-disable-next-line no-console
-      console.error('Destination file path is directory and not a file!');
-
-      return;
-    }
-
     fs.readFile(originalFilePath, 'utf-8', (err, data) => {
       if (err) {
         // eslint-disable-next-line no-console
