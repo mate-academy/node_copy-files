@@ -17,6 +17,11 @@ function copyFile() {
       return;
     }
 
+    if (fs.statSync(originalFilePath).isDirectory()) {
+      // eslint-disable-next-line no-console
+      console.error('Original file path is directory and not a file!');
+    }
+
     fs.readFile(originalFilePath, 'utf-8', (err, data) => {
       if (err) {
         // eslint-disable-next-line no-console
@@ -34,7 +39,7 @@ function copyFile() {
     });
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.log(err);
+    console.error(err);
   }
 }
 
