@@ -1,8 +1,9 @@
 'use strict';
 
-const [patchToCopy, patchToPaste] = process.argv.slice(2);
 const fs = require('fs');
 const path = require('path');
+
+const [patchToCopy, patchToPaste] = process.argv.slice(2);
 
 try {
   if (!patchToCopy || !patchToPaste) {
@@ -13,5 +14,5 @@ try {
     fs.copyFileSync(patchToCopy, patchToPaste);
   }
 } catch (error) {
-  process.stderr.write(error.message);
+  console.error(error.message);
 }
